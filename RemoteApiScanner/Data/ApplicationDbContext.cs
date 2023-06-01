@@ -9,5 +9,6 @@ namespace RemoteApiScanner.Data
             : base(options)
         {
         }
+        public DbSet<Models.EsecuzioniKiteRunner> EsecuzioniKiteRunners { get; set; }
     }
 }
