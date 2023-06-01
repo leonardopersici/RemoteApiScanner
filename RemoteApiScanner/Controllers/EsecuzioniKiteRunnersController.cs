@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -60,8 +61,12 @@ namespace RemoteApiScanner.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("id,user,path,command,link")] EsecuzioniKiteRunner esecuzioniKiteRunner)
         {
-            if (ModelState.IsValid)
+            if (esecuzioniKiteRunner.link != null)
             {
+                esecuzioniKiteRunner.user = User.Identity.Name;
+                ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = "/bin/bash", Arguments = "/dev/init.d/mnw stop", };
+                Process proc = new Process() { StartInfo = startInfo, };
+                proc.Start();
                 esecuzioniKiteRunner.id = Guid.NewGuid();
                 _context.Add(esecuzioniKiteRunner);
                 await _context.SaveChangesAsync();
