@@ -64,7 +64,7 @@ namespace RemoteApiScanner.Controllers
             if (esecuzioniKiteRunner.link != null)
             {
                 esecuzioniKiteRunner.user = User.Identity.Name;
-                ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = "/bin/bash", Arguments = "/dev/init.d/mnw stop", };
+                ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = "C:\\Windows\\system32\\cmd.exe", WorkingDirectory = @"C:\\Users\\leo1-\\Desktop", Arguments = "/c mkdir Test" };
                 Process proc = new Process() { StartInfo = startInfo, };
                 proc.Start();
                 esecuzioniKiteRunner.id = Guid.NewGuid();
