@@ -64,10 +64,20 @@ namespace RemoteApiScanner.Controllers
             if (esecuzioniKiteRunner.link != null)
             {
                 esecuzioniKiteRunner.user = User.Identity.Name;
-                // Prova commit
+#if DEBUG
                 ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = "C:\\Windows\\system32\\cmd.exe", WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist", Arguments = "/c kr scan host.txt -w routes-small.kite -o json > results.json" };
                 Process proc = new Process() { StartInfo = startInfo, };
                 proc.Start();
+#else 
+                ProcessStartInfo startInfo = new ProcessStartInfo()
+                {
+                    FileName = "/bin/bash",
+                    WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
+                    Arguments = "-c \"kr scan dist/host.txt -w routes/routes-small.kite -x 20 -j 100 -o json > results/results.json\"",
+                };
+                Process proc = new Process() { StartInfo = startInfo, };
+                proc.Start();
+#endif
                 esecuzioniKiteRunner.id = Guid.NewGuid();
                 _context.Add(esecuzioniKiteRunner);
                 await _context.SaveChangesAsync();
