@@ -11,9 +11,9 @@ namespace RemoteApiScanner.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid id { get; set; }
         public string user { get; set; }
-        public string path { get; set; }
-        public string command { get; set; }
+        public string routes { get; set; }
         public string link { get; set; }
+        public string statusCode { get; set; }
 
     }
 }

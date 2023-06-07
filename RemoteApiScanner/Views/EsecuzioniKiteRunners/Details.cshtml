@@ -18,16 +18,16 @@
             @Html.DisplayFor(model => model.user)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.path)
+            @Html.DisplayNameFor(model => model.routes)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.path)
+            @Html.DisplayFor(model => model.routes)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.command)
+            @Html.DisplayNameFor(model => model.statusCode)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.command)
+            @Html.DisplayFor(model => model.statusCode)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.link)
@@ -41,3 +41,23 @@
     <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var settings = {
+                "url": "/api/Worker?Id=@Model.id",
+                "method": "GET",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                };
+
+            $.ajax(settings).done(function (response) {
+                var data = JSON.parse(response);
+                console.log(data);
+            });
+        });
+    </script>
+}

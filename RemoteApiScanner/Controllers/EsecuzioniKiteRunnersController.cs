@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Authentication;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using RemoteApiScanner.Data;
 using RemoteApiScanner.Models;
 
@@ -16,10 +16,12 @@ namespace RemoteApiScanner.Controllers
     public class EsecuzioniKiteRunnersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<WorkerController> _logger;
 
-        public EsecuzioniKiteRunnersController(ApplicationDbContext context)
+        public EsecuzioniKiteRunnersController(ApplicationDbContext context, ILogger<WorkerController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: EsecuzioniKiteRunners
@@ -59,31 +61,72 @@ namespace RemoteApiScanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,user,path,command,link")] EsecuzioniKiteRunner esecuzioniKiteRunner)
+        public async Task<IActionResult> Create(EsecuzioniKiteRunner esecuzioniKiteRunner)
         {
             if (esecuzioniKiteRunner.link != null)
             {
                 esecuzioniKiteRunner.user = User.Identity.Name;
-#if DEBUG
-                ProcessStartInfo startInfo = new ProcessStartInfo() { FileName = "C:\\Windows\\system32\\cmd.exe", WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist", Arguments = "/c kr scan host.txt -w routes-small.kite -o json > results.json" };
-                Process proc = new Process() { StartInfo = startInfo, };
-                proc.Start();
-#else 
-                ProcessStartInfo startInfo = new ProcessStartInfo()
-                {
-                    FileName = "/bin/bash",
-                    WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
-                    Arguments = "-c \"kr scan dist/host.txt -w routes/routes-small.kite -x 20 -j 100 -o json > results/results.json\"",
-                };
-                Process proc = new Process() { StartInfo = startInfo, };
-                proc.Start();
-#endif
                 esecuzioniKiteRunner.id = Guid.NewGuid();
+
+                Task.Run(() => EseguiKiteRunner(esecuzioniKiteRunner));
+
                 _context.Add(esecuzioniKiteRunner);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(esecuzioniKiteRunner);
+        }
+        public async Task EseguiKiteRunner(EsecuzioniKiteRunner Modello)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+#if DEBUG
+            ProcessStartInfo startInfo = new ProcessStartInfo() 
+            { 
+                FileName = "C:\\Windows\\system32\\cmd.exe", 
+                WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist", 
+                Arguments = $"/c kr scan host.txt -w routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json" 
+            };
+            Process proc = new Process() { StartInfo = startInfo, };
+            proc.Start();
+#else
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                FileName = "/bin/bash",
+                WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
+                Arguments = $"-c \"kr scan {"https://" + Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json\"",
+            };
+            Process proc = new Process() { StartInfo = startInfo, };
+            proc.Start();
+#endif
+            sw.Stop();
+            TimeSpan ts = sw.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("RemoteApiScanner", "noreply@etau.it"));
+            message.To.Add(new MailboxAddress(Modello.user, Modello.user));
+            message.Subject = $"Risultato esecuzione KiteRunner {Modello.link}";
+
+            var builder = new BodyBuilder();
+            builder.HtmlBody = $"CIAO PIETRO + {elapsedTime}";
+            if (System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json"))
+            {
+                builder.Attachments.Add($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json");
+            }
+
+            message.Body = builder.ToMessageBody();
+
+            using (var client = new SmtpClient())
+            {
+                client.SslProtocols = SslProtocols.Ssl3 | SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12;
+                client.Connect("smtps.aruba.it", 465, SecureSocketOptions.SslOnConnect);
+                client.Authenticate("noreply@etau.it", "VhS$a9cwAsVeh5b");
+                client.Send(message);
+                client.Disconnect(true);
+            }
         }
 
         // GET: EsecuzioniKiteRunners/Edit/5
