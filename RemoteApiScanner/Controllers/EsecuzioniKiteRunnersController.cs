@@ -2,12 +2,14 @@
 using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using RemoteApiScanner.Data;
 using RemoteApiScanner.Models;
 using System.Diagnostics;
 using System.Security.Authentication;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RemoteApiScanner.Controllers
 {
@@ -109,8 +111,15 @@ namespace RemoteApiScanner.Controllers
 
             //inserisco a database quanto tempo e' passato
             Modello.executionTime = elapsedTime;
-            _context.Update(Modello);
-            await _context.SaveChangesAsync();
+            using (var newContext = new ApplicationDbContext(new DbContextOptions<ApplicationDbContext>()
+            {
+
+            }))
+            {
+                newContext.EsecuzioniKiteRunners.Update(Modello);
+                await newContext.SaveChangesAsync();
+            };
+
 
 
             var message = new MimeMessage();
