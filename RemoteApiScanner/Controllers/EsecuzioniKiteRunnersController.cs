@@ -87,8 +87,9 @@ namespace RemoteApiScanner.Controllers
             {
                 FileName = "C:\\Windows\\system32\\cmd.exe",
                 WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist",
-                Arguments = $"/c kr scan host.txt -w routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json"
+                Arguments = $"/c kr scan --kitebuilder-full-scan host.txt -w routes-{Modello.routes}.kite -x 20 -j 100 -o json > {Modello.id}.json"
             };
+
             Process.Start(startInfo).WaitForExit();
             //Aspetto che il processo finisca
 #else
@@ -96,11 +97,10 @@ namespace RemoteApiScanner.Controllers
             {
                 FileName = "/bin/bash",
                 WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
-                Arguments = $"-c \"kr scan {"https://" + Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json\"",
+                Arguments = $"-c \"kr scan --kitebuilder-full-scan https://www.unimi.it -w routes/routes-demo.kite -x 20 -j 100 -o json > results/test.json\"",
             };
-            Process proc = Process.Start(startInfo);
+            Process.Start(startInfo).WaitForExit();
             //Aspetto che il processo finisca
-            proc.WaitForExit();
 #endif
             sw.Stop();
             TimeSpan ts = sw.Elapsed;

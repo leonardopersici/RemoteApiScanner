@@ -23,7 +23,7 @@ namespace RemoteApiScanner.Controllers
         {
             if (Guid.TryParse(Id, out Guid result) && _context.EsecuzioniKiteRunners.Any(x => x.user == User.Identity.Name && x.id == Guid.Parse(Id)) && System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json"))
             {
-                return System.IO.File.ReadAllText($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json");
+                return System.IO.File.ReadAllText($"/home/kiterunner/kiterunner-1.0.2/results/test.json");
             }
             return "Not Found";
         }
