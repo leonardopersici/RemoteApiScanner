@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using RemoteApiScanner.Data;
 using RemoteApiScanner.Models;
@@ -81,15 +82,15 @@ namespace RemoteApiScanner.Controllers
         {
             Stopwatch sw = Stopwatch.StartNew();
 #if DEBUG
+
             ProcessStartInfo startInfo = new ProcessStartInfo()
             {
                 FileName = "C:\\Windows\\system32\\cmd.exe",
                 WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist",
                 Arguments = $"/c kr scan host.txt -w routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json"
             };
-            Process proc = Process.Start(startInfo);
+            Process.Start(startInfo).WaitForExit();
             //Aspetto che il processo finisca
-            proc.WaitForExit();
 #else
             ProcessStartInfo startInfo = new ProcessStartInfo()
             {
@@ -111,14 +112,20 @@ namespace RemoteApiScanner.Controllers
 
             //inserisco a database quanto tempo e' passato
             Modello.executionTime = elapsedTime;
-            using (var newContext = new ApplicationDbContext(new DbContextOptions<ApplicationDbContext>()
-            {
 
-            }))
-            {
-                newContext.EsecuzioniKiteRunners.Update(Modello);
-                await newContext.SaveChangesAsync();
-            };
+
+            var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+#if DEBUG
+            .UseSqlite(@"DataSource=//192.168.3.144/sambashare/app.db;Cache=Shared")
+#else
+            .UseSqlite(@"DataSource=app.db;Cache=Shared")
+#endif
+    .Options;
+
+            using var contextdb = new ApplicationDbContext(contextOptions);
+
+            contextdb.Update(Modello);
+            contextdb.SaveChangesAsync().Wait();
 
 
 
