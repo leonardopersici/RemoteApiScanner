@@ -14,6 +14,7 @@ namespace RemoteApiScanner.Models
         public string routes { get; set; }
         public string link { get; set; }
         public string statusCode { get; set; }
+        public string? executionTime { get; set; }
 
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RemoteApiScanner.Data;
 
@@ -22,14 +21,11 @@ namespace RemoteApiScanner.Controllers
         [HttpGet]
         public string Get(string Id)
         {
-            if (_context.EsecuzioniKiteRunners.Any(x => x.user == User.Identity.Name && x.id == Guid.Parse(Id)))
+            if (Guid.TryParse(Id, out Guid result) && _context.EsecuzioniKiteRunners.Any(x => x.user == User.Identity.Name && x.id == Guid.Parse(Id)) && System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json"))
             {
-                if (System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json"))
-                {
-                    return System.IO.File.ReadAllText($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json");
-                }
+                return System.IO.File.ReadAllText($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json");
             }
-            return "NOT FOUND";
+            return "Not Found";
         }
     }
 }

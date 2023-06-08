@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Diagnostics;
-using System.Security.Authentication;
-using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using RemoteApiScanner.Data;
 using RemoteApiScanner.Models;
+using System.Diagnostics;
+using System.Security.Authentication;
 
 namespace RemoteApiScanner.Controllers
 {
@@ -27,9 +26,9 @@ namespace RemoteApiScanner.Controllers
         // GET: EsecuzioniKiteRunners
         public async Task<IActionResult> Index()
         {
-              return _context.EsecuzioniKiteRunners != null ? 
-                          View(await _context.EsecuzioniKiteRunners.Where(x=>x.user==User.Identity.Name).ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.EsecuzioniKiteRunners'  is null.");
+            return _context.EsecuzioniKiteRunners != null ?
+                        View(await _context.EsecuzioniKiteRunners.Where(x => x.user == User.Identity.Name).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.EsecuzioniKiteRunners'  is null.");
         }
 
         // GET: EsecuzioniKiteRunners/Details/5
@@ -80,14 +79,15 @@ namespace RemoteApiScanner.Controllers
         {
             Stopwatch sw = Stopwatch.StartNew();
 #if DEBUG
-            ProcessStartInfo startInfo = new ProcessStartInfo() 
-            { 
-                FileName = "C:\\Windows\\system32\\cmd.exe", 
-                WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist", 
-                Arguments = $"/c kr scan host.txt -w routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json" 
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                FileName = "C:\\Windows\\system32\\cmd.exe",
+                WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist",
+                Arguments = $"/c kr scan host.txt -w routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json"
             };
-            Process proc = new Process() { StartInfo = startInfo, };
-            proc.Start();
+            Process proc = Process.Start(startInfo);
+            //Aspetto che il processo finisca
+            proc.WaitForExit();
 #else
             ProcessStartInfo startInfo = new ProcessStartInfo()
             {
@@ -95,8 +95,9 @@ namespace RemoteApiScanner.Controllers
                 WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
                 Arguments = $"-c \"kr scan {"https://" + Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > results/{Modello.id}.json\"",
             };
-            Process proc = new Process() { StartInfo = startInfo, };
-            proc.Start();
+            Process proc = Process.Start(startInfo);
+            //Aspetto che il processo finisca
+            proc.WaitForExit();
 #endif
             sw.Stop();
             TimeSpan ts = sw.Elapsed;
@@ -105,6 +106,13 @@ namespace RemoteApiScanner.Controllers
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
+
+            //inserisco a database quanto tempo e' passato
+            Modello.executionTime = elapsedTime;
+            _context.Update(Modello);
+            await _context.SaveChangesAsync();
+
+
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RemoteApiScanner", "noreply@etau.it"));
             message.To.Add(new MailboxAddress(Modello.user, Modello.user));
@@ -150,7 +158,7 @@ namespace RemoteApiScanner.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("id,user,path,command,link")] EsecuzioniKiteRunner esecuzioniKiteRunner)
+        public async Task<IActionResult> Edit(Guid id, EsecuzioniKiteRunner esecuzioniKiteRunner)
         {
             if (id != esecuzioniKiteRunner.id)
             {
@@ -212,14 +220,14 @@ namespace RemoteApiScanner.Controllers
             {
                 _context.EsecuzioniKiteRunners.Remove(esecuzioniKiteRunner);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EsecuzioniKiteRunnerExists(Guid id)
         {
-          return (_context.EsecuzioniKiteRunners?.Any(e => e.id == id)).GetValueOrDefault();
+            return (_context.EsecuzioniKiteRunners?.Any(e => e.id == id)).GetValueOrDefault();
         }
     }
 }
