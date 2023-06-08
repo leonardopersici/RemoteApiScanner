@@ -93,18 +93,19 @@ namespace RemoteApiScanner.Controllers
             Process.Start(startInfo).WaitForExit();
             //Aspetto che il processo finisca
 #else
+            Console.WriteLine($"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"");
             ProcessStartInfo startInfo = new ProcessStartInfo()
             {
                 FileName = "/bin/bash",
                 WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
-                Arguments = $"-c \"kr scan --kitebuilder-full-scan https://www.unimi.it -w routes/routes-demo.kite -x 20 -j 100 -o json > results/test.json\"",
+                Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
             };
             Process.Start(startInfo).WaitForExit();
+            
             //Aspetto che il processo finisca
 #endif
             sw.Stop();
             TimeSpan ts = sw.Elapsed;
-
             // Format and display the TimeSpan value.
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                 ts.Hours, ts.Minutes, ts.Seconds,
