@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<!--
 <h1>Create</h1>
 
 <h4>EsecuzioniKiteRunner</h4>
@@ -13,6 +13,26 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-control">
+                <div class="form-check">
+                    <input class="form-check-input form-control" type="radio" name="routeRadio" id="smallRadio" value="small">
+                    <label class="form-check-label" for="smallRadio">
+                        Small
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input form-control" type="radio" name="routeRadio" id="largeRadio" value="large">
+                    <label class="form-check-label" for="largeRadio">
+                        Large
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input asp-for="routes" checked class="form-check-input form-control" type="radio" name="routeRadio" id="demoRadio" value="demo">
+                    <label class="form-check-label" for="demoRadio">
+                        Demo
+                    </label>
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="routes" class="control-label"></label>
                 <input asp-for="routes" class="form-control" />
@@ -38,7 +58,137 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+-->
+
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <img src="https://github.com/assetnote/kiterunner/raw/main/hack/kiterunner.png" alt="Logo KiteRunner" />
+        </div>
+    </div>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div class="input-group mb-3 form-group">
+                    <span asp-validation-for="link" class="text-danger"></span>
+                    <span asp-validation-for="routes" class="text-danger"></span>
+                    <span asp-validation-for="statusCode" class="text-danger"></span>
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                    <input asp-for="link" type="text" class="form-control text-center" placeholder="www.example.it" aria-label="Link" aria-describedby="basic-addon1">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="showFilters()"><i class="bi bi-filter"></i></button>
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi bi-send"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="row d-none" id="filterContainer">
+            <div class="col-2 offset-2">
+                <div class="card">
+                    <div class="card-header">Routes</div>
+                    <div class="card-body form-control">
+                        <div class="form-check">
+                            <input class="form-check-input form-control" type="radio" name="routeRadio" id="smallRadio" value="small">
+                            <label class="form-check-label" for="smallRadio">
+                                Small
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input form-control" type="radio" name="routeRadio" id="largeRadio" value="large">
+                            <label class="form-check-label" for="largeRadio">
+                                Large
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="routes" class="form-check-input form-control" type="radio" name="routeRadio" id="demoRadio" value="demo">
+                            <label class="form-check-label" for="demoRadio">
+                                Demo
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card form-control">
+                    <div class="card-header">Client Errors</div>
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="400" id="400Check">
+                            <label asp-for="statusCode" class="form-check-label" for="400Check">
+                                400: Bad request
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="401" id="401Check">
+                            <label asp-for="statusCode" class="form-check-label" for="401Check">
+                                401: Unauthorized
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="403" id="403Check">
+                            <label asp-for="statusCode" class="form-check-label" for="403Check">
+                                403: Forbidden
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="404" id="404Check">
+                            <label asp-for="statusCode" class="form-check-label" for="404Check">
+                                404: Not found
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="405" id="405Check">
+                            <label asp-for="statusCode" class="form-check-label" for="405Check">
+                                405: Method not allowed
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="426" id="426Check">
+                            <label asp-for="statusCode" class="form-check-label" for="426Check">
+                                426: Upgrade require
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card form-control">
+                    <div class="card-header">Server Errors</div>
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="501" id="501Check">
+                            <label asp-for="statusCode" class="form-check-label" for="501Check">
+                                501: Not implemented
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="502" id="502Check">
+                            <label asp-for="statusCode" class="form-check-label" for="502Check">
+                                502: Bad gateway
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function showFilters() {
+            var filterContainer = document.getElementById("filterContainer");
+
+            if (filterContainer.classList.contains("d-none")) {
+                filterContainer.classList.remove("d-none");
+            } else {
+                filterContainer.classList.add("d-none");
+            }
+        }
+    </script>
 }
