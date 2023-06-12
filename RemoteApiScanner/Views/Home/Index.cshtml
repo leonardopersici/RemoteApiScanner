@@ -9,27 +9,25 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="text-center">
-        <div class="col-10 offset-1">
+        <div class="col-10 offset-1 mb-3">
             <h2>Welcome back on RemoteApiScanner</h2>
             <br>
             <h6>Start new scan or view previous results</h6>
         </div>
-        <br>
             <a class="btn btn-outline-info" asp-area="" asp-controller="EsecuzioniKiteRunners" asp-action="Index">Scanner List</a>
             |
             <a class="btn btn-outline-success" asp-area="" asp-controller="EsecuzioniKiteRunners" asp-action="Create">New Scan</a>
-    </div>
+     </div>
 }
 else
 {
-    <div class="text-center">
-        <div class="col-6 offset-3">
-            <img src="https://github.com/assetnote/kiterunner/raw/main/hack/kiterunner.png" alt="Logo KiteRunner" />
+    <div class="text-center vertical-center">
+        <div class="col-6 offset-3 mb-3">
+            <img src="Img/Logo-RAS.png" class="w-100" />
         </div>
-        <br>
-        <a class="btn btn-outline-success" asp-area="Identity" asp-page="/Account/Register">Register</a> 
-        |
-        <a class="btn btn-outline-info" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="btn btn-outline-success" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            |
+            <a class="btn btn-outline-info" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </div>
     
 }

@@ -61,20 +61,16 @@
 -->
 
 
-<div class="container text-center">
-    <div class="row">
-        <div class="col-8 offset-2">
-            <img src="https://github.com/assetnote/kiterunner/raw/main/hack/kiterunner.png" alt="Logo KiteRunner" />
+<div class="container text-center vertical-center">
+    <div class="row mb-3">
+        <div class="col-10 offset-1">
+            <img src="/Img/Logo-RAS.png" class="w-100" />
         </div>
     </div>
     <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="col-8 offset-2">
                 <div class="input-group mb-3 form-group">
-                    <span asp-validation-for="link" class="text-danger"></span>
-                    <span asp-validation-for="routes" class="text-danger"></span>
-                    <span asp-validation-for="statusCode" class="text-danger"></span>
                     <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
                     <input asp-for="link" type="text" class="form-control text-center" placeholder="www.example.it" aria-label="Link" aria-describedby="basic-addon1">
                     <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="showFilters()"><i class="bi bi-filter"></i></button>
