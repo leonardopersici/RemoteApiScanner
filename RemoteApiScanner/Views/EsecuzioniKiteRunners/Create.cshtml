@@ -8,7 +8,7 @@
 <div class="container text-center vertical-center">
     <div class="row mb-3">
         <div class="col-10 offset-1">
-            <img src="/Img/Logo-RAS.png" class="w-100" />
+            <img src="https://github.com/assetnote/kiterunner/raw/main/hack/kiterunner.png" alt="Logo KiteRunner" />
         </div>
     </div>
     <form asp-action="Create">
@@ -27,102 +27,84 @@
             </div>
         </div>
 
-        <!--
-        <div class="row">
-            <div class="col-8 offset-2">
-                <div class="input-group mb-3 form-group">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                    <input asp-for="link" type="text" class="form-control text-center" placeholder="www.example.it" aria-label="Link" aria-describedby="basic-addon1">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="showFilters()"><i class="bi bi-filter"></i></button>
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi bi-send"></i></button>
-                </div>
-            </div>
-        </div>
-        -->
-        <div class="row d-none" id="filterContainer">
-            <div class="col-2 offset-2">
-                <div class="card">
-                    <div class="card-header">Routes</div>
-                    <div class="card-body form-control">
-                        <div class="form-check">
-                            <input class="form-check-input form-control" type="radio" name="routeRadio" id="smallRadio" value="small">
-                            <label class="form-check-label" for="smallRadio">
-                                Small
-                            </label>
+        <div class="col-8 offset-2 my-2" id="filters" style="display: none;">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <span class="type">Dictionary</span>
+                            <div class="col">
+                                <label>
+                                    <input type="radio" name="option" value="demo">
+                                    Demo
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="radio" name="option" value="small">
+                                    Small
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="radio" name="option" value="large">
+                                    Large
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input form-control" type="radio" name="routeRadio" id="largeRadio" value="large">
-                            <label class="form-check-label" for="largeRadio">
-                                Large
-                            </label>
+                        <div class="col">
+                            <span class="type">Client Error</span>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="400">
+                                    400: Bad request
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="401">
+                                    401: Unauthorized
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="403">
+                                    403: Forbidden
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="404">
+                                    404: Not found
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="405">
+                                    405: Method not allowed
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="426">
+                                    426: Upgrade required
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input asp-for="routes" class="form-check-input form-control" type="radio" name="routeRadio" id="demoRadio" value="demo">
-                            <label class="form-check-label" for="demoRadio">
-                                Demo
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card form-control">
-                    <div class="card-header">Client Errors</div>
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="400" id="400Check">
-                            <label asp-for="statusCode" class="form-check-label" for="400Check">
-                                400: Bad request
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="401" id="401Check">
-                            <label asp-for="statusCode" class="form-check-label" for="401Check">
-                                401: Unauthorized
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="403" id="403Check">
-                            <label asp-for="statusCode" class="form-check-label" for="403Check">
-                                403: Forbidden
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="404" id="404Check">
-                            <label asp-for="statusCode" class="form-check-label" for="404Check">
-                                404: Not found
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="405" id="405Check">
-                            <label asp-for="statusCode" class="form-check-label" for="405Check">
-                                405: Method not allowed
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="426" id="426Check">
-                            <label asp-for="statusCode" class="form-check-label" for="426Check">
-                                426: Upgrade require
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="card form-control">
-                    <div class="card-header">Server Errors</div>
-                    <div class="card-body">
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="501" id="501Check">
-                            <label asp-for="statusCode" class="form-check-label" for="501Check">
-                                501: Not implemented
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input asp-for="statusCode" class="form-check-input form-control" type="checkbox" value="502" id="502Check">
-                            <label asp-for="statusCode" class="form-check-label" for="502Check">
-                                502: Bad gateway
-                            </label>
+                        <div class="col">
+                            <span class="type">Server Error</span>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="501">
+                                    501: Not implemented
+                                </label>
+                            </div>
+                            <div class="col">
+                                <label>
+                                    <input type="checkbox" name="option" value="502">
+                                    502: Bad gateway
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,19 +121,31 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         function search() {
-            var input = document.getElementById("search-input").value;
-            console.log("Hai cercato: " + input);
+            var searchInput = document.getElementById("search-input").value; // Ottieni il valore dell'input di ricerca
+            var selectedFilters = []; // Array per memorizzare i filtri selezionati
+
+            var checkboxes = document.getElementsByName("option"); // Ottieni tutti gli elementi con name="option"
+
+            // Scansiona tutti gli elementi e controlla se sono selezionati
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    selectedFilters.push(checkboxes[i].value); // Aggiungi il valore del filtro selezionato all'array
+                }
+            }
+
+            console.log("Input di ricerca:", searchInput);
+            console.log("Filtri selezionati:", selectedFilters);
         }
 
         function showFilters() {
-            var filterContainer = document.getElementById("filterContainer");
-
-            if (filterContainer.classList.contains("d-none")) {
-                filterContainer.classList.remove("d-none");
+            var card = document.getElementById("filters"); // Ottieni l'elemento della card utilizzando l'ID
+            if (card.style.display == "none") {
+                card.style.display = "block"; // Mostra la card
             } else {
-                filterContainer.classList.add("d-none");
+                card.style.display = "none"; // Nascondi la card
             }
         }
+
 
         function changeIcon(element, newIconClass) {
             var icon = element.querySelector('i');
