@@ -78,3 +78,7 @@ button.accept-policy {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
+.input-group-text {
+    background-color: transparent; /* Rimuove lo sfondo */
+}

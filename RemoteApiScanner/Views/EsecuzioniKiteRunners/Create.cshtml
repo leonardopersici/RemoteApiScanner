@@ -4,62 +4,6 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!--
-<h1>Create</h1>
-
-<h4>EsecuzioniKiteRunner</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-control">
-                <div class="form-check">
-                    <input class="form-check-input form-control" type="radio" name="routeRadio" id="smallRadio" value="small">
-                    <label class="form-check-label" for="smallRadio">
-                        Small
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input form-control" type="radio" name="routeRadio" id="largeRadio" value="large">
-                    <label class="form-check-label" for="largeRadio">
-                        Large
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input asp-for="routes" checked class="form-check-input form-control" type="radio" name="routeRadio" id="demoRadio" value="demo">
-                    <label class="form-check-label" for="demoRadio">
-                        Demo
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="routes" class="control-label"></label>
-                <input asp-for="routes" class="form-control" />
-                <span asp-validation-for="routes" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="statusCode" class="control-label"></label>
-                <input asp-for="statusCode" class="form-control" />
-                <span asp-validation-for="statusCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="link" class="control-label"></label>
-                <input asp-for="link" class="form-control" />
-                <span asp-validation-for="link" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
--->
-
 
 <div class="container text-center vertical-center">
     <div class="row mb-3">
@@ -68,6 +12,22 @@
         </div>
     </div>
     <form asp-action="Create">
+        <div class="col-8 offset-2">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input id="search-input" type="text" class="form-control text-center" placeholder="www.example.it">
+                <span class="input-group-text filter-icon" onmouseover="changeIcon(this, 'bi-filter-square-fill')" onmouseout="changeIcon(this, 'bi-filter')" onclick="showFilters()">
+                    <i class="bi bi-filter"></i>
+                </span>
+                <span class="input-group-text send-icon" onmouseover="changeIcon(this, 'bi-send-fill')" onmouseout="changeIcon(this, 'bi-send')" onclick="search()">
+                    <i class="bi bi-send"></i>
+                </span>
+            </div>
+        </div>
+
+        <!--
         <div class="row">
             <div class="col-8 offset-2">
                 <div class="input-group mb-3 form-group">
@@ -78,6 +38,7 @@
                 </div>
             </div>
         </div>
+        -->
         <div class="row d-none" id="filterContainer">
             <div class="col-2 offset-2">
                 <div class="card">
@@ -177,6 +138,11 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
+        function search() {
+            var input = document.getElementById("search-input").value;
+            console.log("Hai cercato: " + input);
+        }
+
         function showFilters() {
             var filterContainer = document.getElementById("filterContainer");
 
@@ -185,6 +151,11 @@
             } else {
                 filterContainer.classList.add("d-none");
             }
+        }
+
+        function changeIcon(element, newIconClass) {
+            var icon = element.querySelector('i');
+            icon.className = 'bi ' + newIconClass;
         }
     </script>
 }
