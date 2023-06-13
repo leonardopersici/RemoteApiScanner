@@ -14,7 +14,6 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace RemoteApiScanner.Controllers
 {
-    [Authorize]
     public class EsecuzioniKiteRunnersController : Controller
     {
         private readonly ApplicationDbContext _context;

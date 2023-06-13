@@ -1,14 +1,32 @@
-﻿@model RemoteApiScanner.Models.EsecuzioniKiteRunner
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model RemoteApiScanner.Models.EsecuzioniKiteRunner
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@if (!SignInManager.IsSignedIn(User))
+{
+    <div class="text-center vertical-center">
+        <div class="col-6 offset-3 mb-3">
+            <img src="Img/Logo-RAS.png" class="w-100" />
+        </div>
+        <a class="btn btn-outline-success" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        |
+        <a class="btn btn-outline-info" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </div>
+}
+else
+{
 <div class="container text-center vertical-center">
     <div class="row mb-3">
         <div class="col-10 offset-1">
-            <img src="https://github.com/assetnote/kiterunner/raw/main/hack/kiterunner.png" alt="Logo KiteRunner"/>
+            <img src="/Img/Logo-RAS.png" class="w-100" />
         </div>
     </div>
     <form asp-action="Create">
@@ -32,7 +50,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <span class="type">Dictionary</span>
+                            <span class="type fw-bold">Dictionary</span>
                             <div class="col">
                                 <label>
                                     <input type="radio" name="option" value="demo">
@@ -53,7 +71,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <span class="type">Client Error</span>
+                            <span class="type fw-bold">Client Error</span>
                             <div class="col">
                                 <label>
                                     <input type="checkbox" name="option" value="400">
@@ -92,7 +110,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <span class="type">Server Error</span>
+                            <span class="type fw-bold">Server Error</span>
                             <div class="col">
                                 <label>
                                     <input type="checkbox" name="option" value="501">
@@ -113,6 +131,7 @@
     </form>
     
 </div>
+}
 
 
 

@@ -16,19 +16,19 @@
     <header>
         <nav class="navbar navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="\Img\Logo-RAS.png" style="max-width:300px"/></a>
+                <a class="navbar-brand" asp-area="" asp-controller="EsecuzioniKiteRunners" asp-action="Create"><img src="\Img\Logo-RAS.png" style="max-width:300px"/></a>
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <div class="dropdown text-end">
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle" style="font-size: 25px;"></i>
                         </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" asp-area="" asp-controller="EsecuzioniKiteRunners" asp-action="Index">Scanner List</a></li>
-                            <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end text-center align-middle">
+                            <li><a class="dropdown-item fs-6" asp-area="" asp-controller="EsecuzioniKiteRunners" asp-action="Index"><i class="bi bi-list-check fs-5"></i> Scanner List</a></li>
+                            <li><a class="dropdown-item fs-6" asp-area="Identity" asp-page="/Account/Manage/Email" title="Manage"><i class="bi bi-person-lines-fill fs-5"></i> Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><form class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><button type="submit" class="btn">Sign out</button></form></li>
+                            <li><form class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Create", "EsecuzioniKiteRunners", new { area = "" })"><button type="submit" class="btn fs-6"><i class="bi bi-box-arrow-in-left fs-5"></i> Sign out</button></form></li>
                         </ul>
                     </div>
                 }

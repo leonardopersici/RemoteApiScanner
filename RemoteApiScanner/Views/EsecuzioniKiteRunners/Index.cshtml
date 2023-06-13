@@ -22,20 +22,20 @@
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="align-middle">
             @foreach (var item in Model)
             {
                 <tr>
                     @if (string.IsNullOrEmpty(item.executionTime))
                     {
                         <td>
-                            <i class="bi bi-arrow-clockwise" style="color:blue"></i>
+                            <div class="spinner-border text-light-emphasis fs-3" role="status" style="animation-duration: 2s"></div>
                         </td>
                     }
                     else
                     {
                         <td>
-                            <i class="bi bi-check-circle" style="color:green"></i>
+                            <i class="bi bi-check-circle-fill fs-3" style="color:green"></i>
                         </td>
                     }
                     <td>

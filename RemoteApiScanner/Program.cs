@@ -36,7 +36,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=EsecuzioniKiteRunners}/{action=Create}/{id?}");
 app.MapRazorPages();
 
 app.Run();
