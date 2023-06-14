@@ -12,29 +12,27 @@
             <section>
                 <form id="account" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                    <div class="col-8 offset-2 mb-3">
-                        <div class="form-floating">
-                            <input asp-for="Input.Email" class="form-control text-center rounded-0 rounded-top" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                            <label asp-for="Input.Email" class="form-label text-center">Email</label>
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input asp-for="Input.Password" class="form-control text-center rounded-0 rounded-bottom" autocomplete="current-password" aria-required="true" placeholder="password" />
-                            <label asp-for="Input.Password" class="form-label">Password</label>
-                            <span asp-validation-for="Input.Password" class="text-danger"></span>
-                        </div>
-                        <div class="checkbox mb-3">
-                            <label asp-for="Input.RememberMe" class="form-label">
-                                <input class="form-check-input" asp-for="Input.RememberMe" />
-                                @Html.DisplayNameFor(m => m.Input.RememberMe)
-                            </label>
-                        </div>
-                        <div class="mb-1">
-                            <button id="login-submit" type="submit" class="btn btn-lg btn-primary w-100">Log in</button>
-                        </div>
-                        <div>
-                            <a class="btn btn-lg btn-secondary w-100" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register</a>
-                        </div>
+                    <div class="form-floating">
+                        <input asp-for="Input.Email" class="form-control text-center rounded-0 rounded-top" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Input.Email" class="form-label text-center">Email</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control text-center rounded-0 rounded-bottom" autocomplete="current-password" aria-required="true" placeholder="password" />
+                        <label asp-for="Input.Password" class="form-label">Password</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <label asp-for="Input.RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                    <div class="mb-1">
+                        <button id="login-submit" type="submit" class="btn btn-lg btn-success w-100">Log in</button>
+                    </div>
+                    <div>
+                        <a class="text-body-tertiary text-decoration-none w-100" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">You don't have an account? Click here to register</a>
                     </div>
                 </form>
             </section>
