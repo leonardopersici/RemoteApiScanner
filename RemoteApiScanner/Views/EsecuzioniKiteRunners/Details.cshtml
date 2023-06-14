@@ -5,41 +5,75 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
 
-<div>
-    <h4>EsecuzioniKiteRunner</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.routes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.routes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.statusCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.statusCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.link)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.link)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="container text-center align-middle">
+    <h1>Details</h1>
+
+    <div>
+        <h4>
+            ExecutionID - @Html.DisplayNameFor(model => model.id)
+        </h4>
+        <hr />
+        <div class="row">
+            <div class="col-2">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        Link
+                    </dt>
+                    <dd class="col-sm-10 text-end">
+                        @Html.DisplayFor(model => model.link)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Dictionary
+                    </dt>
+                    <dd class="col-sm-10 text-end">
+                        @Html.DisplayFor(model => model.routes)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Errors
+                    </dt>
+                    <dd class="col-sm-10 text-end">
+                        @Html.DisplayFor(model => model.statusCode)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Time
+                    </dt>
+                    <dd class="col-sm-10 text-end">
+                        @Html.DisplayFor(model => model.executionTime)
+                    </dd>
+                </dl>
+                <div>
+                    <a class="btn btn-outline-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
+                </div>
+            </div>
+            <div class="col-10">
+                <div class="container text-center align-middle">
+                    <div class="card text-center">
+                        <div class="card-header text-bg-secondary container">
+                            <span class="fs-5 fw-semibold">Results</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <table class="table table-sm align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Method</th>
+                                            <th scope="col">Target</th>
+                                            <th scope="col">Path</th>
+                                            <th scope="col">Responses</th>
+                                            <th scope="col">Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyResults">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section scripts {
@@ -57,6 +91,9 @@
             $.ajax(settings).done(function (response) {
                 var data = JSON.parse(response);
                 console.log(data);
+                for(let i=0; i < data.length; i++) {
+                    console.log(data[i].method);
+                };
             });
         });
     </script>
