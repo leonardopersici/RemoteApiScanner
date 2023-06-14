@@ -11,7 +11,7 @@
     <p>
         <a class="btn btn-outline-success" asp-action="Create"><i class="bi bi-plus"></i> New scan</a>
     </p>
-    <table class="table">
+    <table class="table table-sm align-middle">
         <thead>
             <tr>
                 <th scope="col">Status</th>
@@ -29,17 +29,17 @@
                     @if (string.IsNullOrEmpty(item.executionTime))
                     {
                         <td>
-                            <div class="spinner-border text-light-emphasis fs-3" role="status" style="animation-duration: 2s"></div>
+                            <div class="spinner-border spinner-border-sm text-secondary" role="status" style="animation-duration: 3s"></div>
                         </td>
                     }
                     else
                     {
                         <td>
-                            <i class="bi bi-check-circle-fill fs-3" style="color:green"></i>
+                            <i class="bi bi-check-circle-fill text-success"></i>
                         </td>
                     }
                     <td>
-                        @Html.DisplayFor(modelItem => item.link)
+                        <a href="@Html.DisplayFor(modelItem => item.link)">@Html.DisplayFor(modelItem => item.link)</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.routes)
@@ -51,8 +51,8 @@
                         @Html.DisplayFor(modelItem => item.executionTime)
                     </td>
                     <td>
-                        <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a> |
-                        <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
+                        <a class="btn btn-outline-primary btn-sm border-0" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a>
+                        <a class="btn btn-outline-danger btn-sm border-0" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
                     </td>
                 </tr>
             }
