@@ -158,23 +158,10 @@ else
             console.log("Input di ricerca:", searchInput);
             console.log("Filtri selezionati:", selectedFilters);
 
-            //questo mi sembra il modo piu bello
-            //però, tipo... da qui l'ID dove lo prendo?
-            //non serve l'id lo genera il controller errore mio
-            //ah okok ci sta, e qui posso associargli direttamente le variabili o devo sempre fare interpolazione? diretto
-            var esecuzioniKiteRunner = {
-                user: "gfdg",
-                routes: "gfdg",
-                link: "gfdg",
-                statusCode: "asd"
-            };
-            console.log(esecuzioniKiteRunner)
-
             $.ajax({
-                url: '/EsecuzioniKiteRunners/Create',
+                url: '/api/Worker',
                 method: 'POST',
-                data:JSON.stringify({
-                    user: "gfdg",
+                data: JSON.stringify({
                     routes: "gfdg",
                     link: "gfdg",
                     statusCode: "asd"
