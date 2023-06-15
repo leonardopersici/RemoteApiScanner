@@ -57,19 +57,19 @@ else
                                 <span class="type fw-bold">Dictionary</span>
                                 <div class="col">
                                     <label>
-                                        <input type="radio" name="option" value="demo">
+                                        <input type="radio" name="option" id="optionDemo" value="demo">
                                         Demo
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="radio" name="option" value="small">
+                                        <input type="radio" name="option" id="optionSmall" value="small">
                                         Small
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="radio" name="option" value="large">
+                                        <input type="radio" name="option" id="optionLarge" value="large">
                                         Large
                                     </label>
                                 </div>
@@ -78,37 +78,37 @@ else
                                 <span class="type fw-bold">Client Error</span>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="400">
+                                        <input type="checkbox" name="option" id="option400" value="400">
                                         400: Bad request
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="401">
+                                        <input type="checkbox" name="option" id="option401" value="401">
                                         401: Unauthorized
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="403">
+                                        <input type="checkbox" name="option" id="option403" value="403">
                                         403: Forbidden
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="404">
+                                        <input type="checkbox" name="option" id="option404" value="404">
                                         404: Not found
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="405">
+                                        <input type="checkbox" name="option" id="option405" value="405">
                                         405: Method not allowed
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="426">
+                                        <input type="checkbox" name="option" id="option426" value="426">
                                         426: Upgrade required
                                     </label>
                                 </div>
@@ -117,13 +117,13 @@ else
                                 <span class="type fw-bold">Server Error</span>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="501">
+                                        <input type="checkbox" name="option" id="option501" value="501">
                                         501: Not implemented
                                     </label>
                                 </div>
                                 <div class="col">
                                     <label>
-                                        <input type="checkbox" name="option" value="502">
+                                        <input type="checkbox" name="option" id="option502" value="502">
                                         502: Bad gateway
                                     </label>
                                 </div>
@@ -146,50 +146,49 @@ else
         //comunque usate un cazzzo di file js di merda
         function search() {
             var searchInput = document.getElementById("search-input").value; // Ottieni il valore dell'input di ricerca
+            var selectedRoute = ""; //stringa con il valore route (dictionary)
             var selectedFilters = []; // Array per memorizzare i filtri selezionati
 
             var checkboxes = document.getElementsByName("option"); // Ottieni tutti gli elementi con name="option"
 
             // Scansiona tutti gli elementi e controlla se sono selezionati
             for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
+                if (checkboxes[i].checked && i == 0) {
+                    selectedRoute = checkboxes[i].value; //imposta il valore route dal checkbox corrispondente
+                } else if (checkboxes[i].checked){
                     selectedFilters.push(checkboxes[i].value); // Aggiungi il valore del filtro selezionato all'array
                 }
             }
 
             console.log("Input di ricerca:", searchInput);
+            console.log("Routes selezionato:", selectedRoute);
             console.log("Filtri selezionati:", selectedFilters);
 
-            //questo mi sembra il modo piu bello
-            //però, tipo... da qui l'ID dove lo prendo?
-            //non serve l'id lo genera il controller errore mio
-            //ah okok ci sta, e qui posso associargli direttamente le variabili o devo sempre fare interpolazione? diretto
-            var esecuzioniKiteRunner = {
-                user: "gfdg",
-                routes: "gfdg",
-                link: "gfdg",
-                statusCode: "asd"
-            };
-            console.log(esecuzioniKiteRunner)
-
             $.ajax({
-                url: '/EsecuzioniKiteRunners/Create',
+                url: '/api/Worker',
                 method: 'POST',
-                data:JSON.stringify({
-                    user: "gfdg",
-                    routes: "gfdg",
-                    link: "gfdg",
-                    statusCode: "asd"
+                data: JSON.stringify({
+                    user:"",
+                    routes: selectedRoute,
+                    link: searchInput,
+                    statusCode: selectedFilters.toString(),
                 }),
                 contentType: 'application/json',
                 success: function (response) {
                     // Gestisci la risposta dal controller qui
-                    console.log(response);
-                    // Esegui altre azioni in base alla risposta
+                    document.getElementById("search-input").value = ""; //svuoto barra di ricerca
+                    document.getElementById("filters").style.display = "none"; //nascondo i filtri
+                    for (var i = 0; i < checkboxes.length; i++){
+                        if (checkboxes[i].checked) {
+                            document.getElementById(checkboxes[i].id).checked = false; //deseleziono i filtri
+                        }
+                    }
+                    // Simulate an HTTP redirect to /esecuzioniKiteRunners/Index
+                    //window.location.replace(window.location.href + "EsecuzioniKiteRunners/Index");
                 },
                 error: function (xhr, status, error) {
                     // Gestisci gli eventuali errori qui
-                    console.log(error);
+                    console.log("ERRORE");
                 }
             });
         }

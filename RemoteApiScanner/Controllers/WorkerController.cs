@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RemoteApiScanner.Codice;
 using RemoteApiScanner.Data;
+using RemoteApiScanner.Models;
 
 namespace RemoteApiScanner.Controllers
 {
@@ -27,6 +29,24 @@ namespace RemoteApiScanner.Controllers
                 return "[" + jsonform.Remove(jsonform.Length - 1) + "]";
             }
             return "Not Found";
+        }
+        // POST: EsecuzioniKiteRunners/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AllowAnonymous]
+        [HttpPost]
+        public async void Post(EsecuzioniKiteRunner esecuzioniKiteRunner)
+        {
+            if (esecuzioniKiteRunner.link != null)
+            {
+                esecuzioniKiteRunner.user = User.Identity.Name;
+                esecuzioniKiteRunner.id = Guid.NewGuid();
+
+                Task.Run(() => Execute.EseguiKiteRunner(esecuzioniKiteRunner));
+
+                _context.Add(esecuzioniKiteRunner);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
