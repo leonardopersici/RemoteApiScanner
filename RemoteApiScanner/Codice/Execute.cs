@@ -2,6 +2,7 @@
 using MailKit.Security;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
+using RemoteApiScanner.Controllers;
 using RemoteApiScanner.Data;
 using RemoteApiScanner.Models;
 using System.Diagnostics;
@@ -11,6 +12,14 @@ namespace RemoteApiScanner.Codice
 {
     public class Execute
     {
+        private readonly ApplicationDbContext _context;
+        private readonly ILogger<Execute> _logger;
+
+        public Execute(ApplicationDbContext context, ILogger<Execute> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
         public static async Task EseguiKiteRunner(EsecuzioniKiteRunner Modello)
         {
             Stopwatch sw = Stopwatch.StartNew();
