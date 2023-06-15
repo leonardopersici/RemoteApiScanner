@@ -60,8 +60,8 @@ namespace RemoteApiScanner.Controllers
         // POST: EsecuzioniKiteRunners/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EsecuzioniKiteRunner esecuzioniKiteRunner)
         {
             if (esecuzioniKiteRunner.link != null)
@@ -73,9 +73,9 @@ namespace RemoteApiScanner.Controllers
 
                 _context.Add(esecuzioniKiteRunner);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Ok();
             }
-            return View(esecuzioniKiteRunner);
+            return Ok();
         }
         public async Task EseguiKiteRunner(EsecuzioniKiteRunner Modello)
         {

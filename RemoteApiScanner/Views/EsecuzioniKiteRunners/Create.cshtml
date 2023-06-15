@@ -14,7 +14,7 @@
 {
     <div class="container text-center vertical-center">
         <div class="col-6 offset-3 mb-3">
-            <img src="Img/Logo-RAS.png" class="w-100"/>
+            <img src="Img/Logo-RAS.png" class="w-100" />
         </div>
         <div class="col-10 offset-1">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mauris erat, aliquam volutpat malesuada id, consequat ac nunc. Integer leo lectus, malesuada a mattis quis, semper vitae ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi mauris sapien, consequat a fringilla ac, convallis et orci. Maecenas eget quam fringilla, tempor orci eu, hendrerit ante. Vivamus consectetur sed sem a posuere. Suspendisse placerat pharetra velit eget hendrerit. Nullam ultrices leo at dictum interdum. Nullam sodales diam massa, id interdum nibh consectetur eget. Ut et aliquam nunc. Vivamus massa velit, auctor nec odio in, vehicula porttitor sem. Etiam at tortor non nunc iaculis tincidunt. Suspendisse nisl metus, sodales sed tortor ac, consectetur sollicitudin sem.</p>
@@ -25,122 +25,123 @@
 }
 else
 {
-<div class="container text-center vertical-center">
-    <div class="row mb-3">
-        <div class="col-10 offset-1">
-            <img src="/Img/Logo-RAS.png" class="w-100" />
-        </div>
-    </div>
-    <form asp-action="Create">
-        <div class="col-8 offset-2">
-            <div class="input-group border border-success-subtle rounded rounded-4 shadow-sm">
-                <span class="input-group-text border border-0">
-                    <i class="bi bi-search"></i>
-                </span>
-                <input id="search-input" type="text" class="form-control text-center border border-0" placeholder="www.example.it">
-                <span class="input-group-text filter-icon border border-0" onmouseover="changeIcon(this, 'bi-filter-square-fill')" onmouseout="changeIcon(this, 'bi-filter')" onclick="showFilters()">
-                    <i class="bi bi-filter"></i>
-                </span>
-                <span class="input-group-text send-icon border border-0" onmouseover="changeIcon(this, 'bi-send-fill')" onmouseout="changeIcon(this, 'bi-send')" onclick="search()">
-                    <i class="bi bi-send"></i>
-                </span>
+    <div class="container text-center vertical-center">
+        <div class="row mb-3">
+            <div class="col-10 offset-1">
+                <img src="/Img/Logo-RAS.png" class="w-100" />
             </div>
         </div>
+        <form asp-action="Create">
+            <div class="col-8 offset-2">
+                <div class="input-group border border-success-subtle rounded rounded-4 shadow-sm">
+                    <span class="input-group-text border border-0">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input id="search-input" type="text" class="form-control text-center border border-0" placeholder="www.example.it">
+                    <span class="input-group-text filter-icon border border-0" onmouseover="changeIcon(this, 'bi-filter-square-fill')" onmouseout="changeIcon(this, 'bi-filter')" onclick="showFilters()">
+                        <i class="bi bi-filter"></i>
+                    </span>
+                    <span class="input-group-text send-icon border border-0" onmouseover="changeIcon(this, 'bi-send-fill')" onmouseout="changeIcon(this, 'bi-send')" onclick="search()">
+                        <i class="bi bi-send"></i>
+                    </span>
+                </div>
+            </div>
 
-        <div class="col-8 offset-2 my-2" id="filters" style="display: none;">
-            <div class="card border-danger-subtle rounded rounded-4 shadow-sm">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <span class="type fw-bold">Dictionary</span>
+            <div class="col-8 offset-2 my-2" id="filters" style="display: none;">
+                <div class="card border-danger-subtle rounded rounded-4 shadow-sm">
+                    <div class="card-body">
+                        <div class="row">
                             <div class="col">
-                                <label>
-                                    <input type="radio" name="option" value="demo">
-                                    Demo
-                                </label>
+                                <span class="type fw-bold">Dictionary</span>
+                                <div class="col">
+                                    <label>
+                                        <input type="radio" name="option" value="demo">
+                                        Demo
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="radio" name="option" value="small">
+                                        Small
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="radio" name="option" value="large">
+                                        Large
+                                    </label>
+                                </div>
                             </div>
                             <div class="col">
-                                <label>
-                                    <input type="radio" name="option" value="small">
-                                    Small
-                                </label>
+                                <span class="type fw-bold">Client Error</span>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="400">
+                                        400: Bad request
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="401">
+                                        401: Unauthorized
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="403">
+                                        403: Forbidden
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="404">
+                                        404: Not found
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="405">
+                                        405: Method not allowed
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="426">
+                                        426: Upgrade required
+                                    </label>
+                                </div>
                             </div>
                             <div class="col">
-                                <label>
-                                    <input type="radio" name="option" value="large">
-                                    Large
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <span class="type fw-bold">Client Error</span>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="400">
-                                    400: Bad request
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="401">
-                                    401: Unauthorized
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="403">
-                                    403: Forbidden
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="404">
-                                    404: Not found
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="405">
-                                    405: Method not allowed
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="426">
-                                    426: Upgrade required
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <span class="type fw-bold">Server Error</span>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="501">
-                                    501: Not implemented
-                                </label>
-                            </div>
-                            <div class="col">
-                                <label>
-                                    <input type="checkbox" name="option" value="502">
-                                    502: Bad gateway
-                                </label>
+                                <span class="type fw-bold">Server Error</span>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="501">
+                                        501: Not implemented
+                                    </label>
+                                </div>
+                                <div class="col">
+                                    <label>
+                                        <input type="checkbox" name="option" value="502">
+                                        502: Bad gateway
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-    
-</div>
+        </form>
+
+    </div>
 }
 
 
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        //comunque usate un cazzzo di file js di merda
         function search() {
             var searchInput = document.getElementById("search-input").value; // Ottieni il valore dell'input di ricerca
             var selectedFilters = []; // Array per memorizzare i filtri selezionati
@@ -156,6 +157,39 @@ else
 
             console.log("Input di ricerca:", searchInput);
             console.log("Filtri selezionati:", selectedFilters);
+
+            //questo mi sembra il modo piu bello
+            //però, tipo... da qui l'ID dove lo prendo?
+            //non serve l'id lo genera il controller errore mio
+            //ah okok ci sta, e qui posso associargli direttamente le variabili o devo sempre fare interpolazione? diretto
+            var esecuzioniKiteRunner = {
+                user: "gfdg",
+                routes: "gfdg",
+                link: "gfdg",
+                statusCode: "asd"
+            };
+            console.log(esecuzioniKiteRunner)
+
+            $.ajax({
+                url: '/EsecuzioniKiteRunners/Create',
+                method: 'POST',
+                data:JSON.stringify({
+                    user: "gfdg",
+                    routes: "gfdg",
+                    link: "gfdg",
+                    statusCode: "asd"
+                }),
+                contentType: 'application/json',
+                success: function (response) {
+                    // Gestisci la risposta dal controller qui
+                    console.log(response);
+                    // Esegui altre azioni in base alla risposta
+                },
+                error: function (xhr, status, error) {
+                    // Gestisci gli eventuali errori qui
+                    console.log(error);
+                }
+            });
         }
 
         function showFilters() {
