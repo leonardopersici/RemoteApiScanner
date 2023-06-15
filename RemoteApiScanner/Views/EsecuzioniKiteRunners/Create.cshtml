@@ -12,7 +12,7 @@
 
 @if (!SignInManager.IsSignedIn(User))
 {
-    <div class="container d-flex" style="height: calc(100vh - 60px - 60px - 32px);">
+    <div class="container d-flex cazzo">
         <div class="align-self-center">
             <div class="col-6 offset-3 mb-3">
                 <img src="Img/Logo-RAS.png" class="w-100" />
@@ -143,6 +143,18 @@ else
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
+        function setCenterDivHeight() {
+            const centerDiv = document.querySelector('.cazzo');
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const footerHeight = document.querySelector('footer').offsetHeight;
+            const windowHeight = window.innerHeight - 32;
+            const visibleHeight = windowHeight - headerHeight - footerHeight;
+            centerDiv.style.height = visibleHeight + 'px';
+        }
+
+        window.addEventListener('DOMContentLoaded', setCenterDivHeight);
+        window.addEventListener('resize', setCenterDivHeight);
+
         //comunque usate un cazzzo di file js di merda
         function search() {
             var searchInput = document.getElementById("search-input").value; // Ottieni il valore dell'input di ricerca
