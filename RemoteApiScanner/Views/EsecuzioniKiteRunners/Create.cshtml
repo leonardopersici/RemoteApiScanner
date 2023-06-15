@@ -12,7 +12,7 @@
 
 @if (!SignInManager.IsSignedIn(User))
 {
-    <div class="container d-flex cazzo">
+    <div class="container d-flex">
         <div class="align-self-center">
             <div class="col-6 offset-3 mb-3">
                 <img src="Img/Logo-RAS.png" class="w-100" />
@@ -144,7 +144,7 @@ else
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
         function setCenterDivHeight() {
-            const centerDiv = document.querySelector('.cazzo');
+            const centerDiv = document.querySelector('.container.d-flex');
             const headerHeight = document.querySelector('header').offsetHeight;
             const footerHeight = document.querySelector('footer').offsetHeight;
             const windowHeight = window.innerHeight - 32;
@@ -155,7 +155,6 @@ else
         window.addEventListener('DOMContentLoaded', setCenterDivHeight);
         window.addEventListener('resize', setCenterDivHeight);
 
-        //comunque usate un cazzzo di file js di merda
         function search() {
             var searchInput = document.getElementById("search-input").value; // Ottieni il valore dell'input di ricerca
             var selectedRoute = ""; //stringa con il valore route (dictionary)
