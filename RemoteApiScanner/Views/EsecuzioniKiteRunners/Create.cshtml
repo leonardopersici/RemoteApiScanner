@@ -143,18 +143,6 @@ else
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
-        function setCenterDivHeight() {
-            const centerDiv = document.querySelector('.container.d-flex');
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const footerHeight = document.querySelector('footer').offsetHeight;
-            const windowHeight = window.innerHeight - 32;
-            const visibleHeight = windowHeight - headerHeight - footerHeight;
-            centerDiv.style.height = visibleHeight + 'px';
-        }
-
-        window.addEventListener('DOMContentLoaded', setCenterDivHeight);
-        window.addEventListener('resize', setCenterDivHeight);
-
         function search() {
             var searchInput = document.getElementById("search-input").value; // Ottieni il valore dell'input di ricerca
             var selectedRoute = ""; //stringa con il valore route (dictionary)
