@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-body">
                             <div class="container">
-                                <table class="table table-sm align-middle">
+                                <table class="table table-sm align-middle" id="tableResults">
                                     <thead>
                                         <tr>
                                             <th scope="col">Method</th>
@@ -91,7 +91,25 @@
             $.ajax(settings).done(function (response) {
                 var data = JSON.parse(response);
                 console.log(data);
+                var table = document.getElementById("tableResults");
+                var tbody = table.getElementsByTagName('tbody')[0];
                 for(let i=0; i < data.length; i++) {
+                    var newRow = tbody.insertRow(); //inserisco nuova riga nel tbody della tabella
+                    var cellMethod = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textMethod = document.createTextNode(data[i].method); //inserisco il valore preso dal JSON nella cella
+                    cellMethod.appendChild(textMethod);
+                    var cellTarget = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textTarget = document.createTextNode(data[i].target); //inserisco il valore preso dal JSON nella cella
+                    cellTarget.appendChild(textTarget);
+                    var cellPath= newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textPath= document.createTextNode(data[i].path); //inserisco il valore preso dal JSON nella cella
+                    cellPath.appendChild(textPath);
+                    var cellResponses = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textResponses = document.createTextNode(data[i].responses.toString()); //inserisco il valore preso dal JSON nella cella
+                    cellResponses.appendChild(textResponses);
+                    var cellTime = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textTime = document.createTextNode(data[i].time); //inserisco il valore preso dal JSON nella cella
+                    cellTime.appendChild(textTime);
                     console.log(data[i].method);
                 };
             });
