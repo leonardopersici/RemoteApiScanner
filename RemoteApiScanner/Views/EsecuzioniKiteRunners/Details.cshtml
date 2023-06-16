@@ -10,43 +10,20 @@
     <h1>Details</h1>
 
     <div>
-        <h4>
-            ExecutionID - @Html.DisplayFor(model => model.id)
-        </h4>
-        <hr />
         <div class="row">
             <div class="col-2">
-                <dl class="row">
-                    <dt class="col-sm-2">
-                        Link
-                    </dt>
-                    <dd class="col-sm-10 text-end">
-                        @Html.DisplayFor(model => model.link)
-                    </dd>
-                    <dt class="col-sm-2">
-                        Dictionary
-                    </dt>
-                    <dd class="col-sm-10 text-end">
-                        @Html.DisplayFor(model => model.routes)
-                    </dd>
-                    <dt class="col-sm-2">
-                        Errors
-                    </dt>
-                    <dd class="col-sm-10 text-end">
-                        @Html.DisplayFor(model => model.statusCode)
-                    </dd>
-                    <dt class="col-sm-2">
-                        Time
-                    </dt>
-                    <dd class="col-sm-10 text-end">
-                        @Html.DisplayFor(model => model.executionTime)
-                    </dd>
-                </dl>
-                <div>
-                    <a class="btn btn-outline-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
-                </div>
+                <a class="btn btn-outline-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
             </div>
             <div class="col-10">
+                <span class="fw-bold fs-4">Link &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.link) &ensp;|&ensp;</span>
+                <span class="fw-bold fs-4">Dictionary &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.routes) &ensp;|&ensp;</span>
+                <span class="fw-bold fs-4">Errors &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.statusCode) &ensp;|&ensp;</span>
+                <span class="fw-bold fs-4">Time &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.executionTime)</span>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col">
                 <div class="container text-center align-middle">
                     <div class="card text-center">
                         <div class="card-header text-bg-secondary container">
@@ -60,7 +37,9 @@
                                             <th scope="col">Method</th>
                                             <th scope="col">Target</th>
                                             <th scope="col">Path</th>
-                                            <th scope="col">Responses</th>
+                                            <th scope="col">Uri</th>
+                                            <th scope="col">StatusCode</th>
+                                            <th scope="col">Length</th>
                                             <th scope="col">Time</th>
                                         </tr>
                                     </thead>
@@ -104,13 +83,18 @@
                     var cellPath= newRow.insertCell(); //inserisco nuova cella nella riga appena creata
                     var textPath= document.createTextNode(data[i].path); //inserisco il valore preso dal JSON nella cella
                     cellPath.appendChild(textPath);
-                    var cellResponses = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
-                    var textResponses = document.createTextNode(data[i].responses.toString()); //inserisco il valore preso dal JSON nella cella
-                    cellResponses.appendChild(textResponses);
+                    var cellUri = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textUri = document.createTextNode(data[i].responses[0].uri); //inserisco il valore preso dal JSON nella cella
+                    cellUri.appendChild(textUri);
+                    var cellStatusCode = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textStatusCode = document.createTextNode(data[i].responses[0].sc); //inserisco il valore preso dal JSON nella cella
+                    cellStatusCode.appendChild(textStatusCode);
+                    var cellLength = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textLength = document.createTextNode(data[i].responses[0].len); //inserisco il valore preso dal JSON nella cella
+                    cellLength.appendChild(textLength);
                     var cellTime = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
                     var textTime = document.createTextNode(data[i].time); //inserisco il valore preso dal JSON nella cella
                     cellTime.appendChild(textTime);
-                    console.log(data[i].method);
                 };
             });
         });
