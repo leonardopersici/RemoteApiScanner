@@ -6,7 +6,7 @@
 }
 <div class="container d-flex border border-danger">
     <div class="align-self-center col-12 border border-primary">
-        <div class="col-2 offset-5 text-center border border-success">
+        <div class="col-3 offset-5 text-center  border border-success">
             <form id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating">
@@ -22,14 +22,14 @@
                 <div class="checkbox mb-3">
                     <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        Remember me
                     </label>
                 </div>
                 <div class="mb-1">
                     <button id="login-submit" type="submit" class="btn btn-lg btn-success w-100">Log in</button>
                 </div>
                 <div>
-                    <a class="text-body-tertiary text-decoration-none w-100" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">You don't have an account? Click here to register</a>
+                    <a class="text-body-tertiary text-decoration-none w-100" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">You don't have an account? Click here to register!</a>
                 </div>
             </form>
         </div>
@@ -40,17 +40,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script type="text/javascript">
-        function setCenterDivHeight() {
-            const centerDiv = document.querySelector('.container.d-flex');
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const footerHeight = document.querySelector('footer').offsetHeight;
-            const windowHeight = window.innerHeight - 32;
-            const visibleHeight = windowHeight - headerHeight - footerHeight;
-            centerDiv.style.height = visibleHeight + 'px';
-        }
-
-        window.addEventListener('DOMContentLoaded', setCenterDivHeight);
-        window.addEventListener('resize', setCenterDivHeight);
-    </script>
 }

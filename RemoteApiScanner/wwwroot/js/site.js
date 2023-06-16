@@ -8,7 +8,7 @@ function setCenterDivHeight() {
     const centerDiv = document.querySelector('.container.d-flex');
     const headerHeight = document.querySelector('header').offsetHeight;
     const footerHeight = document.querySelector('footer').offsetHeight;
-    const windowHeight = window.innerHeight - 32; // In toeria il -32 non dovrebbe servire ma è necessario altrimenti non funziona correttamente la centratura.
+    const windowHeight = window.innerHeight; // In toeria il -32 non dovrebbe servire ma è necessario altrimenti non funziona correttamente la centratura.
     const visibleHeight = windowHeight - headerHeight - footerHeight;
     centerDiv.style.height = visibleHeight + 'px';
 }
