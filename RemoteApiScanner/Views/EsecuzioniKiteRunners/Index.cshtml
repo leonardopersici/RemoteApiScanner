@@ -5,65 +5,67 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container text-center align-middle">
-    <div class="card text-center">
-        <div class="card-header text-bg-secondary container">
-            <div class="row">
-                <span class="col-4 offset-4 fs-5 fw-semibold">Scanner List</span>
-                <span class="col-4 text-end">
-                    <a class="btn btn-success" asp-action="Create"><i class="bi bi-plus-lg"></i> New scan</a>
-                </span>
+<div class="container d-flex">
+    <div class="align-self-center col-12">
+        <div class="card text-center shadow">
+            <div class="card-header text-bg-secondary container">
+                <div class="row">
+                    <span class="col-4 offset-4 fs-5 fw-semibold">Scanner List</span>
+                    <span class="col-4 text-end">
+                        <a class="btn btn-success" asp-action="Create"><i class="bi bi-plus-lg"></i> New scan</a>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="card-body">
-            <div class="container">
-                <table class="table table-sm align-middle">
-                    <thead>
-                        <tr>
-                            <th scope="col">Status</th>
-                            <th scope="col">Link</th>
-                            <th scope="col">Dictionary</th>
-                            <th scope="col">Errors</th>
-                            <th scope="col">Time</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+            <div class="card-body">
+                <div class="container">
+                    <table class="table table-sm align-middle">
+                        <thead>
                             <tr>
-                                @if (string.IsNullOrEmpty(item.executionTime))
-                                {
-                                    <td>
-                                        <div class="spinner-border spinner-border-sm text-secondary" role="status" style="animation-duration: 3s"></div>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                    </td>
-                                }
-                                <td>
-                                    <a class="text-secondary" href="https://@Html.DisplayFor(modelItem => item.link)" target="_blank">@Html.DisplayFor(modelItem => item.link)</a>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.routes)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.statusCode)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.executionTime)
-                                </td>
-                                <td>
-                                    <a class="btn btn-outline-primary btn-sm border-0" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a>
-                                    <a class="btn btn-outline-danger btn-sm border-0" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
-                                </td>
+                                <th scope="col">Status</th>
+                                <th scope="col">Link</th>
+                                <th scope="col">Dictionary</th>
+                                <th scope="col">Errors</th>
+                                <th scope="col">Time</th>
+                                <th scope="col"></th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    @if (string.IsNullOrEmpty(item.executionTime))
+                                    {
+                                        <td>
+                                            <div class="spinner-border spinner-border-sm text-secondary" role="status" style="animation-duration: 3s"></div>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <i class="bi bi-check-circle-fill text-success"></i>
+                                        </td>
+                                    }
+                                    <td>
+                                        <a class="text-secondary" href="https://@Html.DisplayFor(modelItem => item.link)" target="_blank">@Html.DisplayFor(modelItem => item.link)</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.routes)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.statusCode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.executionTime)
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-primary btn-sm border-0" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a>
+                                        <a class="btn btn-outline-danger btn-sm border-0" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
