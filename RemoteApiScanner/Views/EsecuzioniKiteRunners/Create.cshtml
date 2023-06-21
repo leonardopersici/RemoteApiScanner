@@ -38,7 +38,7 @@ else
                         <span class="input-group-text border border-0"><i class="bi bi-search"></i></span>
                         <input id="search-input" type="text" class="form-control text-center border border-0" placeholder="www.example.it">
                         <a class="input-group-text btn btn-outline-secondary border border-0" onclick="showFilters()"><i class="bi bi-filter"></i></a>
-                        <a class="input-group-text btn btn-outline-secondary border border-0"><i class="bi bi-send"></i></a>
+                        <a class="input-group-text btn btn-outline-secondary border border-0" onclick="send()"><i class="bi bi-send"></i></a>
                     </div>
                 </div>
                 <div class="col-8 offset-2 my-2" id="filters" style="display: none;">
@@ -49,19 +49,19 @@ else
                                     <span class="type fw-bold">Dictionary</span>
                                     <div class="col">
                                         <label>
-                                            <input type="radio" name="option" id="optionDemo" value="demo">
+                                            <input type="radio" name="optionRoute" id="optionDemo" value="demo">
                                             Demo
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="radio" name="option" id="optionSmall" value="small">
+                                            <input type="radio" name="optionRoute" id="optionSmall" value="small" checked>
                                             Small
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="radio" name="option" id="optionLarge" value="large">
+                                            <input type="radio" name="optionRoute" id="optionLarge" value="large">
                                             Large
                                         </label>
                                     </div>
@@ -70,37 +70,37 @@ else
                                     <span class="type fw-bold">Client Error</span>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option400" value="400">
+                                            <input type="checkbox" name="optionStatusCode" id="option400" value="400" checked>
                                             400: Bad request
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option401" value="401">
+                                            <input type="checkbox" name="optionStatusCode" id="option401" value="401" checked>
                                             401: Unauthorized
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option403" value="403">
+                                            <input type="checkbox" name="optionStatusCode" id="option403" value="403" checked>
                                             403: Forbidden
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option404" value="404">
+                                            <input type="checkbox" name="optionStatusCode" id="option404" value="404" checked>
                                             404: Not found
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option405" value="405">
+                                            <input type="checkbox" name="optionStatusCode" id="option405" value="405" checked>
                                             405: Method not allowed
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option426" value="426">
+                                            <input type="checkbox" name="optionStatusCode" id="option426" value="426" checked>
                                             426: Upgrade required
                                         </label>
                                     </div>
@@ -109,13 +109,13 @@ else
                                     <span class="type fw-bold">Server Error</span>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option501" value="501">
+                                            <input type="checkbox" name="optionStatusCode" id="option501" value="501" checked>
                                             501: Not implemented
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="option" id="option502" value="502">
+                                            <input type="checkbox" name="optionStatusCode" id="option502" value="502" checked>
                                             502: Bad gateway
                                         </label>
                                     </div>
@@ -135,19 +135,25 @@ else
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script type="text/javascript">
-        function search() {
+        function send() {
             var searchInput = document.getElementById("search-input").value; // Ottieni il valore dell'input di ricerca
             var selectedRoute = ""; //stringa con il valore route (dictionary)
             var selectedFilters = []; // Array per memorizzare i filtri selezionati
 
-            var checkboxes = document.getElementsByName("option"); // Ottieni tutti gli elementi con name="option"
+            var checkboxesRoutes = document.getElementsByName("optionRoute"); // Ottieni tutti gli elementi con name="optionRoutes"
+            var checkboxesStatusCode = document.getElementsByName("optionStatusCode"); // Ottieni tutti gli elementi con name="optionStatusCode"
 
-            // Scansiona tutti gli elementi e controlla se sono selezionati
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked && i == 0) {
-                    selectedRoute = checkboxes[i].value; //imposta il valore route dal checkbox corrispondente
-                } else if (checkboxes[i].checked){
-                    selectedFilters.push(checkboxes[i].value); // Aggiungi il valore del filtro selezionato all'array
+            // Scansiona tutti gli elementi routes e controlla se sono selezionati
+            for (var i = 0; i < checkboxesRoutes.length; i++) {
+                if (checkboxesRoutes[i].checked) {
+                    selectedRoute = checkboxesRoutes[i].value; 
+                }
+            }
+
+            // Scansiona tutti gli elementi statuscode e controlla se sono selezionati
+            for (var i = 0; i < checkboxesStatusCode.length; i++) {
+                if (!checkboxesStatusCode[i].checked) {
+                    selectedFilters = checkboxesStatusCode[i].value;
                 }
             }
 
@@ -167,15 +173,15 @@ else
                 contentType: 'application/json',
                 success: function (response) {
                     // Gestisci la risposta dal controller qui
-                    document.getElementById("search-input").value = ""; //svuoto barra di ricerca
+                    /*document.getElementById("search-input").value = ""; //svuoto barra di ricerca
                     document.getElementById("filters").style.display = "none"; //nascondo i filtri
                     for (var i = 0; i < checkboxes.length; i++){
                         if (checkboxes[i].checked) {
                             document.getElementById(checkboxes[i].id).checked = false; //deseleziono i filtri
                         }
-                    }
+                    }*/
                     // Simulate an HTTP redirect to /esecuzioniKiteRunners/Index
-                    //window.location.replace(window.location.href + "EsecuzioniKiteRunners/Index");
+                    window.location.replace(window.location.href + "EsecuzioniKiteRunners/Index");
                 },
                 error: function (xhr, status, error) {
                     // Gestisci gli eventuali errori qui

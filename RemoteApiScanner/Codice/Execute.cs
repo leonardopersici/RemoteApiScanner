@@ -35,14 +35,27 @@ namespace RemoteApiScanner.Codice
             Process.Start(startInfo).WaitForExit();
             //Aspetto che il processo finisca
 #else
-            Console.WriteLine($"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"");
-            ProcessStartInfo startInfo = new ProcessStartInfo()
+            Console.WriteLine($"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 --fail-status-codes {Modello.statusCode} -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"");
+            if(Modello.statusCode == "")
             {
-                FileName = "/bin/bash",
-                WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
-                Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
-            };
-            Process.Start(startInfo).WaitForExit();
+                ProcessStartInfo startInfo = new ProcessStartInfo()
+                {
+                    FileName = "/bin/bash",
+                    WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
+                    Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
+                };
+                Process.Start(startInfo).WaitForExit();
+
+            } else
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo()
+                {
+                    FileName = "/bin/bash",
+                    WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
+                    Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 --fail-status-codes {Modello.statusCode} -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
+                };
+                Process.Start(startInfo).WaitForExit();
+            }
             
             //Aspetto che il processo finisca
 #endif
