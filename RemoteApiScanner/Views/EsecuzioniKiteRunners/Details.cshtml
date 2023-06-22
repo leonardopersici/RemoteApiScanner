@@ -13,8 +13,9 @@
                     <span class="col-4 text-start">
                         @if (User.Identity.IsAuthenticated)
                         {
-                                                    <a class="btn btn-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
-                        }                    </span>
+                            <a class="btn btn-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
+                        }                    
+                    </span>
                     <span class="col-4 fs-5 fw-semibold align-self-center">Details</span>
                     <span class="col-4 text-end fw-semibold align-self-center">[@Html.DisplayFor(model => model.link) | @Html.DisplayFor(model => model.routes) | @Html.DisplayFor(model => model.statusCode) | @Html.DisplayFor(model => model.executionTime)]</span>
                 </div> 
