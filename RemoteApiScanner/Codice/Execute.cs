@@ -88,10 +88,13 @@ namespace RemoteApiScanner.Codice
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RemoteApiScanner", "noreply@etau.it"));
             message.To.Add(new MailboxAddress(Modello.user, Modello.user));
-            message.Subject = $"Risultato esecuzione KiteRunner {Modello.link}";
+            message.Subject = $"Risultato esecuzione RemoteApiScanner <b>{Modello.link}</b>";
 
             var builder = new BodyBuilder();
-            builder.HtmlBody = $"CIAO PIETRO + {elapsedTime}";
+            builder.HtmlBody = $"Gentile utente, la informiamo che la scannerizzazione da lei richiesta in data (DATA ESECUZIONE) inerente all'indirizzo {Modello.link} è stata completata con successo in soli {Modello.executionTime}." +
+                $"<br> Può consultare il risultato ottenuto nella sezione 'Scanner List' sul nostro portale." +
+                $"<br> In altrenativa può cliccare direttamente sul bottone sottostante per accedere direttamente al risultato." +
+                $"<br> <button>Vedi il risultato</button>";
             if (System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json"))
             {
                 builder.Attachments.Add($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json");
