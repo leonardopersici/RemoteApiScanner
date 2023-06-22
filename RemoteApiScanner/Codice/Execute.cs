@@ -62,7 +62,7 @@ namespace RemoteApiScanner.Codice
             sw.Stop();
             TimeSpan ts = sw.Elapsed;
             // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+            string elapsedTime = String.Format("{0:00}h | {1:00}m | {2:00}.{3:00}s",
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
 
@@ -88,7 +88,7 @@ namespace RemoteApiScanner.Codice
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RemoteApiScanner", "noreply@etau.it"));
             message.To.Add(new MailboxAddress(Modello.user, Modello.user));
-            message.Subject = $"Risultato esecuzione RemoteApiScanner <b>{Modello.link}</b>";
+            message.Subject = $"Risultato esecuzione RemoteApiScanner {Modello.link}";
 
             var builder = new BodyBuilder();
             builder.HtmlBody = $"Gentile utente, la informiamo che la scannerizzazione da lei richiesta in data (DATA ESECUZIONE) inerente all'indirizzo {Modello.link} è stata completata con successo in soli {Modello.executionTime}." +
