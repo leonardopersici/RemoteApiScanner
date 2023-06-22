@@ -62,7 +62,7 @@ namespace RemoteApiScanner.Codice
             sw.Stop();
             TimeSpan ts = sw.Elapsed;
             // Format and display the TimeSpan value.
-            string elapsedTime = String.Format("{0:00}h | {1:00}m | {2:00}.{3:00}s",
+            string elapsedTime = String.Format("{0:00}h {1:00}m {2:00}.{3:00}s",
                 ts.Hours, ts.Minutes, ts.Seconds,
                 ts.Milliseconds / 10);
 
@@ -94,7 +94,7 @@ namespace RemoteApiScanner.Codice
             builder.HtmlBody = $"Gentile utente, la informiamo che la scannerizzazione da lei richiesta in data (DATA ESECUZIONE) inerente all'indirizzo {Modello.link} è stata completata con successo in soli {Modello.executionTime}." +
                 $"<br> Può consultare il risultato ottenuto nella sezione 'Scanner List' sul nostro portale." +
                 $"<br> In altrenativa può cliccare direttamente sul bottone sottostante per accedere direttamente al risultato." +
-                $"<br> <button>Vedi il risultato</button>";
+                $"<br><a href='https://ras.etau.it/EsecuzioniKiteRunners/Details/{Modello.id}'>Vedi il risultato</a>";
             if (System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json"))
             {
                 builder.Attachments.Add($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json");
