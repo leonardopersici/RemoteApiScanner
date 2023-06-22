@@ -5,50 +5,34 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="container text-center align-middle">
-    <h1>Details</h1>
-
-    <div>
-        <div class="row">
-            <div class="col-2">
-                <a class="btn btn-outline-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
+<div class="container d-flex">
+    <div class="align-self-center col-12">
+        <div class="card text-center shadow">
+            <div class="card-header text-bg-secondary container">
+                <div class="row">
+                    <span class="col-4 text-start">
+                        <a class="btn btn-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
+                    </span>
+                    <span class="col-4 fs-5 fw-semibold align-self-center">Details</span>
+                    <span class="col-4 text-end fw-semibold align-self-center">[@Html.DisplayFor(model => model.link) | @Html.DisplayFor(model => model.routes) | @Html.DisplayFor(model => model.statusCode) | @Html.DisplayFor(model => model.executionTime)]</span>
+                </div> 
             </div>
-            <div class="col-10">
-                <span class="fw-bold fs-4">Link &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.link) &ensp;|&ensp;</span>
-                <span class="fw-bold fs-4">Dictionary &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.routes) &ensp;|&ensp;</span>
-                <span class="fw-bold fs-4">Errors &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.statusCode) &ensp;|&ensp;</span>
-                <span class="fw-bold fs-4">Time &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.executionTime)</span>
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col">
-                <div class="container text-center align-middle">
-                    <div class="card text-center">
-                        <div class="card-header text-bg-secondary container">
-                            <span class="fs-5 fw-semibold">Results</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="container">
-                                <table class="table table-sm align-middle" id="tableResults">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Method</th>
-                                            <th scope="col">Target</th>
-                                            <th scope="col">Path</th>
-                                            <th scope="col">Uri</th>
-                                            <th scope="col">StatusCode</th>
-                                            <th scope="col">Length</th>
-                                            <th scope="col">Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbodyResults">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+            
+            <div class="card-body">
+                <div class="container">
+                    <table class="table table-sm align-middle" id="tableResults">
+                        <thead>
+                            <tr>
+                                <th scope="col">Method</th>
+                                <th scope="col">Target</th>
+                                <th scope="col">Path</th>
+                                <th scope="col">StatusCode</th>
+                                <th scope="col">Length</th>
+                                <th scope="col">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyResults"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -83,9 +67,6 @@
                     var cellPath= newRow.insertCell(); //inserisco nuova cella nella riga appena creata
                     var textPath= document.createTextNode(data[i].path); //inserisco il valore preso dal JSON nella cella
                     cellPath.appendChild(textPath);
-                    var cellUri = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
-                    var textUri = document.createTextNode(data[i].responses[0].uri); //inserisco il valore preso dal JSON nella cella
-                    cellUri.appendChild(textUri);
                     var cellStatusCode = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
                     var textStatusCode = document.createTextNode(data[i].responses[0].sc); //inserisco il valore preso dal JSON nella cella
                     cellStatusCode.appendChild(textStatusCode);
