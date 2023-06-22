@@ -20,6 +20,7 @@ namespace RemoteApiScanner.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public string Get(string Id)
         {
@@ -33,7 +34,6 @@ namespace RemoteApiScanner.Controllers
         // POST: EsecuzioniKiteRunners/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [AllowAnonymous]
         [HttpPost]
         public async void Post(EsecuzioniKiteRunner esecuzioniKiteRunner)
         {
