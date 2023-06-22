@@ -12,7 +12,10 @@
     <div>
         <div class="row">
             <div class="col-2">
-                <a class="btn btn-outline-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-outline-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
+                }
             </div>
             <div class="col-10">
                 <span class="fw-bold fs-4">Link &ensp;</span><span class="fs-5">@Html.DisplayFor(model => model.link) &ensp;|&ensp;</span>
@@ -65,14 +68,14 @@
                 "headers": {
                     "Content-Type": "application/json"
                 },
-                };
+            };
 
             $.ajax(settings).done(function (response) {
                 var data = JSON.parse(response);
                 console.log(data);
                 var table = document.getElementById("tableResults");
                 var tbody = table.getElementsByTagName('tbody')[0];
-                for(let i=0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     var newRow = tbody.insertRow(); //inserisco nuova riga nel tbody della tabella
                     var cellMethod = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
                     var textMethod = document.createTextNode(data[i].method); //inserisco il valore preso dal JSON nella cella
@@ -80,8 +83,8 @@
                     var cellTarget = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
                     var textTarget = document.createTextNode(data[i].target); //inserisco il valore preso dal JSON nella cella
                     cellTarget.appendChild(textTarget);
-                    var cellPath= newRow.insertCell(); //inserisco nuova cella nella riga appena creata
-                    var textPath= document.createTextNode(data[i].path); //inserisco il valore preso dal JSON nella cella
+                    var cellPath = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
+                    var textPath = document.createTextNode(data[i].path); //inserisco il valore preso dal JSON nella cella
                     cellPath.appendChild(textPath);
                     var cellUri = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
                     var textUri = document.createTextNode(data[i].responses[0].uri); //inserisco il valore preso dal JSON nella cella

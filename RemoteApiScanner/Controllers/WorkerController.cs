@@ -24,7 +24,7 @@ namespace RemoteApiScanner.Controllers
         [HttpGet]
         public string Get(string Id)
         {
-            if (Guid.TryParse(Id, out Guid result) && _context.EsecuzioniKiteRunners.Any(x => x.user == User.Identity.Name && x.id == Guid.Parse(Id)) && System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json"))
+            if (Guid.TryParse(Id, out Guid result) && _context.EsecuzioniKiteRunners.Any(x => x.id == Guid.Parse(Id)) && System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json"))
             {
                 string jsonform = System.IO.File.ReadAllText($"/home/kiterunner/kiterunner-1.0.2/results/{Id}.json").Replace("\n", ",");
                 return "[" + jsonform.Remove(jsonform.Length - 1) + "]";
@@ -37,7 +37,7 @@ namespace RemoteApiScanner.Controllers
         [HttpPost]
         public async void Post(EsecuzioniKiteRunner esecuzioniKiteRunner)
         {
-            if (esecuzioniKiteRunner.link != null)
+            if (!string.IsNullOrEmpty(esecuzioniKiteRunner.link))
             {
                 esecuzioniKiteRunner.user = User.Identity.Name;
                 esecuzioniKiteRunner.id = Guid.NewGuid();

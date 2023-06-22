@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RemoteApiScanner.Data;
 using RemoteApiScanner.Models;
 
 namespace RemoteApiScanner.Controllers
 {
+    [Authorize]
     public class EsecuzioniKiteRunnersController : Controller
     {
         private readonly ApplicationDbContext _context;
