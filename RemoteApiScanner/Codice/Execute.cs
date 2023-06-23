@@ -22,6 +22,7 @@ namespace RemoteApiScanner.Codice
         }
         public static async Task EseguiKiteRunner(EsecuzioniKiteRunner Modello)
         {
+            Modello.executionDate = DateTime.Now;
             Stopwatch sw = Stopwatch.StartNew();
 #if DEBUG
 
@@ -92,7 +93,7 @@ namespace RemoteApiScanner.Codice
 
             var builder = new BodyBuilder();
             builder.HtmlBody = $"Gentile utente," +
-                $"<br><br> La scannerizzazione richiesta in data (DATA ESECUZIONE) per l'indirizzo {Modello.link} è stata completata con successo in {Modello.executionTime}." +
+                $"<br><br> La scannerizzazione richiesta in data {Modello.executionDate.ToString("dd/mm/yyyy")} per l'indirizzo {Modello.link} è stata completata con successo in {Modello.executionTime}." +
                 $"<br><br> Il risultato ottenuto è disponibile nella sezione 'Scanner List' del nostro portale. Per visualizzarlo direttamente, può fare clic sul link sottostante:" +
                 $"<br><br> [<a style='text-decoration: none' href='https://ras.etau.it/EsecuzioniKiteRunners/Details/{Modello.id}'>Vedi il risultato</a>]" +
                 $"<br><br> Inoltre, troverà in allegato il file contenente i risultati dell'esecuzione." +

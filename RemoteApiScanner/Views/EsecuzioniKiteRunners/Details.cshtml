@@ -16,7 +16,7 @@
                             <a class="btn btn-secondary" asp-action="Index"><i class="bi bi-chevron-left"></i> Back to List</a>
                         }                    
                     </span>
-                    <span class="col-4 fs-5 fw-semibold align-self-center">Details</span>
+                    <span class="col-4 fs-5 fw-semibold align-self-center">Results</span>
                 </div> 
             </div>
             
@@ -76,7 +76,7 @@
                     var textLength = document.createTextNode(data[i].responses[0].len); //inserisco il valore preso dal JSON nella cella
                     cellLength.appendChild(textLength);
                     var cellTime = newRow.insertCell(); //inserisco nuova cella nella riga appena creata
-                    var textTime = document.createTextNode(data[i].time); //inserisco il valore preso dal JSON nella cella
+                    var textTime = document.createTextNode(data[i].time.substring(11,19)); //inserisco il valore preso dal JSON nella cella
                     cellTime.appendChild(textTime);
                 };
             });

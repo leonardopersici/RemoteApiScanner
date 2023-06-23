@@ -17,6 +17,7 @@ namespace RemoteApiScanner.Models
         public string link { get; set; }
         public string statusCode { get; set; }
         public string? executionTime { get; set; }
+        public DateTime executionDate { get; set; }
 
     }
 }
