@@ -5,8 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container d-flex">
-    <div class="align-self-center col-12">
+<div class="container my-3">
+    <div class="col-12">
         <div class="card text-center shadow">
             <div class="card-header text-bg-secondary container">
                 <div class="row">
@@ -47,7 +47,7 @@
                                         </td>
                                     }
                                     <td>
-                                        @item.executionDate.ToString("dd/mm/yyyy")
+                                        @item.executionDate.ToString("dd/MM/yyyy")
                                     </td>
                                     <td>
                                         <a class="text-secondary" href="https://@Html.DisplayFor(modelItem => item.link)" target="_blank">@Html.DisplayFor(modelItem => item.link)</a>
