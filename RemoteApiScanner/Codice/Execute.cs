@@ -91,10 +91,14 @@ namespace RemoteApiScanner.Codice
             message.Subject = $"Risultato esecuzione RemoteApiScanner {Modello.link}";
 
             var builder = new BodyBuilder();
-            builder.HtmlBody = $"Gentile utente, la informiamo che la scannerizzazione da lei richiesta in data (DATA ESECUZIONE) inerente all'indirizzo {Modello.link} è stata completata con successo in soli {Modello.executionTime}." +
-                $"<br> Può consultare il risultato ottenuto nella sezione 'Scanner List' sul nostro portale." +
-                $"<br> In altrenativa può cliccare direttamente sul bottone sottostante per accedere direttamente al risultato." +
-                $"<br><a href='https://ras.etau.it/EsecuzioniKiteRunners/Details/{Modello.id}'>Vedi il risultato</a>";
+            builder.HtmlBody = $"Gentile utente," +
+                $"<br><br> La scannerizzazione richiesta in data (DATA ESECUZIONE) per l'indirizzo {Modello.link} è stata completata con successo in {Modello.executionTime}." +
+                $"<br><br> Il risultato ottenuto è disponibile nella sezione 'Scanner List' del nostro portale. Per visualizzarlo direttamente, può fare clic sul link sottostante:" +
+                $"<br><br> [<a style='text-decoration: none' href='https://ras.etau.it/EsecuzioniKiteRunners/Details/{Modello.id}'>Vedi il risultato</a>]" +
+                $"<br><br> Inoltre, troverà in allegato il file contenente i risultati dell'esecuzione." +
+                $"<br><br> Grazie per aver utilizzato i nostri servizi." +
+                $"<br><br> Cordiali saluti," +
+                $"<br><br> Il Team di RemoateApiScanner";
             if (System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json"))
             {
                 builder.Attachments.Add($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json");
