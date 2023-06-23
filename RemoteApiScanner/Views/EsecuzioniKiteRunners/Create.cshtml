@@ -162,33 +162,37 @@ else
             console.log("Routes selezionato:", selectedRoute);
             console.log("Filtri selezionati:", selectedFilters);
 
-            $.ajax({
-                url: '/api/Worker',
-                method: 'POST',
-                data: JSON.stringify({
-                    user:"",
-                    routes: selectedRoute,
-                    link: searchInput,
-                    statusCode: selectedFilters.toString(),
-                }),
-                contentType: 'application/json',
-                success: function (response) {
-                    // Gestisci la risposta dal controller qui
-                    /*document.getElementById("search-input").value = ""; //svuoto barra di ricerca
-                    document.getElementById("filters").style.display = "none"; //nascondo i filtri
-                    for (var i = 0; i < checkboxes.length; i++){
-                        if (checkboxes[i].checked) {
-                            document.getElementById(checkboxes[i].id).checked = false; //deseleziono i filtri
-                        }
-                    }*/
-                    // Simulate an HTTP redirect to /esecuzioniKiteRunners/Index
-                    window.location.replace(window.location.href + "EsecuzioniKiteRunners/Index");
-                },
-                error: function (xhr, status, error) {
-                    // Gestisci gli eventuali errori qui
-                    console.log("ERRORE");
-                }
-            });
+            if (searchInput != "") {
+                $.ajax({
+                    url: '/api/Worker',
+                    method: 'POST',
+                    data: JSON.stringify({
+                        user: "",
+                        routes: selectedRoute,
+                        link: searchInput,
+                        statusCode: selectedFilters.toString(),
+                    }),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        // Gestisci la risposta dal controller qui
+                        /*document.getElementById("search-input").value = ""; //svuoto barra di ricerca
+                        document.getElementById("filters").style.display = "none"; //nascondo i filtri
+                        for (var i = 0; i < checkboxes.length; i++){
+                            if (checkboxes[i].checked) {
+                                document.getElementById(checkboxes[i].id).checked = false; //deseleziono i filtri
+                            }
+                        }*/
+                        // Simulate an HTTP redirect to /esecuzioniKiteRunners/Index
+                        window.location.replace(window.location.href + "EsecuzioniKiteRunners/Index");
+                    },
+                    error: function (xhr, status, error) {
+                        // Gestisci gli eventuali errori qui
+                        console.log("ERRORE");
+                    }
+                });
+            } else {
+                alert("Please, insert a link!");
+            }
         }
 
         function showFilters() {
