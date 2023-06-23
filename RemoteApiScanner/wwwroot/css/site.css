@@ -74,3 +74,8 @@ button.accept-policy {
 .input-group-text {
     background-color: transparent; /* Rimuove lo sfondo */
 }
+
+.text-bg-lightgray {
+    color: #17171F !important;
+    background-color: RGBA(174, 174, 174,var(--bs-bg-opacity,1)) !important;
+}
