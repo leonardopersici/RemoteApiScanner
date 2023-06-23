@@ -92,14 +92,14 @@ namespace RemoteApiScanner.Codice
             message.Subject = $"Risultato esecuzione RemoteApiScanner {Modello.link}";
 
             var builder = new BodyBuilder();
-            builder.HtmlBody = $"Gentile utente," +
-                $"<br><br> La scannerizzazione richiesta in data {Modello.executionDate.ToString("dd/mm/yyyy")} per l'indirizzo {Modello.link} è stata completata con successo in {Modello.executionTime}." +
-                $"<br><br> Il risultato ottenuto è disponibile nella sezione 'Scanner List' del nostro portale. Per visualizzarlo direttamente, può fare clic sul link sottostante:" +
-                $"<br><br> [<a style='text-decoration: none' href='https://ras.etau.it/EsecuzioniKiteRunners/Details/{Modello.id}'>Vedi il risultato</a>]" +
-                $"<br><br> Inoltre, troverà in allegato il file contenente i risultati dell'esecuzione." +
-                $"<br><br> Grazie per aver utilizzato i nostri servizi." +
-                $"<br><br> Cordiali saluti," +
-                $"<br><br> Il Team di RemoteApiScanner";
+            builder.HtmlBody = $"Dear user," +
+                $"<br><br> The requested scanning on {Modello.executionDate.ToString("dd/MM/yyyy")} for the address {Modello.link} has been successfully completed in {Modello.executionTime}." +
+                $"<br><br> The obtained result is available in the 'Scanner List' section of our portal. To view it directly, you can click on the link below:" +
+                $"<br><br> [<a style='text-decoration: none' href='https://ras.etau.it/EsecuzioniKiteRunners/Details/{Modello.id}'>See the result</a>]" +
+                $"<br><br> Additionally, you will find the file containing the execution results attached." +
+                $"<br><br> Thank you for using our services." +
+                $"<br><br> Best regards," +
+                $"<br><br> The RemoteApiScanner Team";
             if (System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json"))
             {
                 builder.Attachments.Add($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json");
