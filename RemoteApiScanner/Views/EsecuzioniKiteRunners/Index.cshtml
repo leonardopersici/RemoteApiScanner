@@ -18,76 +18,78 @@
             </div>
             <div class="card-body">
                 <div class="container">
-                    <table class="table table-sm align-middle">
-                        <thead>
-                            <tr>
-                                <th scope="col">Status</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Link</th>
-                                <th scope="col">Dictionary</th>
-                                <th scope="col">Status Code</th>
-                                <th scope="col">Execution Time</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+                    <div class="table-responsive">
+                        <table class="table table-sm align-middle table-scroll-x">
+                            <thead>
                                 <tr>
-                                    @if (string.IsNullOrEmpty(item.executionTime))
-                                    {
-                                        <td>
-                                            <div class="spinner-border spinner-border-sm text-secondary" role="status" style="animation-duration: 3s"></div>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            <i class="bi bi-check-circle-fill text-success"></i>
-                                        </td>
-                                    }
-                                    <td>
-                                        @item.executionDate.ToString("dd/mm/yyyy")
-                                    </td>
-                                    <td>
-                                        <a class="text-secondary" href="https://@Html.DisplayFor(modelItem => item.link)" target="_blank">@Html.DisplayFor(modelItem => item.link)</a>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.routes)
-                                    </td>
-                                    <td>
-                                        @{
-                                            var originalString = "400,401,403,404,405,426,501,502";
-                                            var removeString = item.statusCode;
-
-                                            var originalArray = originalString.Split(',');
-                                            var removeArray = removeString.Split(',');
-
-                                            var resultArray = originalArray.Where(item => !removeArray.Contains(item));
-                                            var resultString = string.Join(",", resultArray);
-
-                                            @Html.Raw(resultString)
-                                        }
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.executionTime)
-                                    </td>
-                                    <td>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Link</th>
+                                    <th scope="col">Dictionary</th>
+                                    <th scope="col">Status Code</th>
+                                    <th scope="col">Execution Time</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
                                         @if (string.IsNullOrEmpty(item.executionTime))
                                         {
-                                            <a class="btn btn-outline-primary btn-sm border-0 disabled" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a>
-                                            <a class="btn btn-outline-danger btn-sm border-0 disabled" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
+                                            <td>
+                                                <div class="spinner-border spinner-border-sm text-secondary" role="status" style="animation-duration: 3s"></div>
+                                            </td>
                                         }
                                         else
                                         {
-                                            <a class="btn btn-outline-primary btn-sm border-0" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a>
-                                            <a class="btn btn-outline-danger btn-sm border-0" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>                                            
+                                            <td>
+                                                <i class="bi bi-check-circle-fill text-success"></i>
+                                            </td>
                                         }
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                        <td>
+                                            @item.executionDate.ToString("dd/mm/yyyy")
+                                        </td>
+                                        <td>
+                                            <a class="text-secondary" href="https://@Html.DisplayFor(modelItem => item.link)" target="_blank">@Html.DisplayFor(modelItem => item.link)</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.routes)
+                                        </td>
+                                        <td>
+                                            @{
+                                                var originalString = "400,401,403,404,405,426,501,502";
+                                                var removeString = item.statusCode;
+
+                                                var originalArray = originalString.Split(',');
+                                                var removeArray = removeString.Split(',');
+
+                                                var resultArray = originalArray.Where(item => !removeArray.Contains(item));
+                                                var resultString = string.Join(",", resultArray);
+
+                                                @Html.Raw(resultString)
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.executionTime)
+                                        </td>
+                                        <td>
+                                            @if (string.IsNullOrEmpty(item.executionTime))
+                                            {
+                                                <a class="btn btn-outline-primary btn-sm border-0 disabled" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a>
+                                                <a class="btn btn-outline-danger btn-sm border-0 disabled" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-outline-primary btn-sm border-0" asp-action="Details" asp-route-id="@item.id"><i class="bi bi-info-circle"></i></a>
+                                                <a class="btn btn-outline-danger btn-sm border-0" asp-action="Delete" asp-route-id="@item.id"><i class="bi bi-trash3"></i></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
