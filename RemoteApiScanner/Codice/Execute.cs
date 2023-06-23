@@ -99,7 +99,7 @@ namespace RemoteApiScanner.Codice
                 $"<br><br> Inoltre, troverà in allegato il file contenente i risultati dell'esecuzione." +
                 $"<br><br> Grazie per aver utilizzato i nostri servizi." +
                 $"<br><br> Cordiali saluti," +
-                $"<br><br> Il Team di RemoateApiScanner";
+                $"<br><br> Il Team di RemoteApiScanner";
             if (System.IO.File.Exists($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json"))
             {
                 builder.Attachments.Add($"/home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json");
