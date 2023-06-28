@@ -45,7 +45,7 @@ else
                     <span class="text-secondary small"><i class="bi bi-exclamation-circle text-warning"></i> By default, the scanning process employs a 'small' dictionary without any status code filters applied.</span>
                 </div>
                 <div class="col-md-6 offset-md-3 mt-2" id="filters" style="display: none;">
-                    <div class="card bordeer border-secondary-subtle rounded rounded-3 shadow-sm">
+                    <div class="card border border-secondary-subtle rounded rounded-3 shadow-sm">
                         <div class="card-body">
                             <div class="row text-center">
                                 <div class="col">
@@ -73,37 +73,37 @@ else
                                     <span class="type fw-bold">Client Error</span>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option400" value="400" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option400" value="400">
                                             400: Bad request
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option401" value="401" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option401" value="401">
                                             401: Unauthorized
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option403" value="403" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option403" value="403">
                                             403: Forbidden
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option404" value="404" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option404" value="404">
                                             404: Not found
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option405" value="405" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option405" value="405">
                                             405: Method not allowed
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option426" value="426" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option426" value="426">
                                             426: Upgrade required
                                         </label>
                                     </div>
@@ -112,18 +112,21 @@ else
                                     <span class="type fw-bold">Server Error</span>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option501" value="501" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option501" value="501">
                                             501: Not implemented
                                         </label>
                                     </div>
                                     <div class="col">
                                         <label>
-                                            <input type="checkbox" name="optionStatusCode" id="option502" value="502" checked>
+                                            <input type="checkbox" name="optionStatusCode" id="option502" value="502">
                                             502: Bad gateway
                                         </label>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="card-footer text-center mt-2">
+                            <span class="text-secondary small"><i class="bi bi-exclamation-circle text-warning"></i> Selected status code will not be considered in the scanning process.</span>
                         </div>
                     </div>
                 </div>
@@ -153,8 +156,8 @@ else
 
             // Scansiona tutti gli elementi statuscode e controlla se sono selezionati
             for (var i = 0; i < checkboxesStatusCode.length; i++) {
-                if (!checkboxesStatusCode[i].checked) {
-                    selectedFilters = checkboxesStatusCode[i].value;
+                if (checkboxesStatusCode[i].checked) {
+                    selectedFilters.push(checkboxesStatusCode[i].value);
                 }
             }
 

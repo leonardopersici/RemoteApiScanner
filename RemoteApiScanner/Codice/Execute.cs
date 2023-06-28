@@ -30,20 +30,20 @@ namespace RemoteApiScanner.Codice
             {
                 FileName = "C:\\Windows\\system32\\cmd.exe",
                 WorkingDirectory = @"C:\\Users\\leo1-\\Desktop\\kiterunner\\dist",
-                Arguments = $"/c kr scan --kitebuilder-full-scan host.txt -w routes-{Modello.routes}.kite -x 20 -j 100 -o json > {Modello.id}.json"
+                Arguments = $"/c kr scan --kitebuilder-full-scan host.txt -w routes-{Modello.routes}.kite -x 10 -o json > {Modello.id}.json"
             };
 
             Process.Start(startInfo).WaitForExit();
             //Aspetto che il processo finisca
 #else
-            Console.WriteLine($"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 --fail-status-codes {Modello.statusCode} -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"");
+            Console.WriteLine($"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 10 --fail-status-codes {Modello.statusCode} -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"");
             if(Modello.statusCode == "")
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo()
                 {
                     FileName = "/bin/bash",
                     WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
-                    Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
+                    Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 10 -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
                 };
                 Process.Start(startInfo).WaitForExit();
 
@@ -53,7 +53,7 @@ namespace RemoteApiScanner.Codice
                 {
                     FileName = "/bin/bash",
                     WorkingDirectory = "/home/kiterunner/kiterunner-1.0.2",
-                    Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 20 -j 100 --fail-status-codes {Modello.statusCode} -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
+                    Arguments = $"-c \"kr scan --kitebuilder-full-scan {Modello.link} -w routes/routes-{Modello.routes}.kite -x 10 --fail-status-codes {Modello.statusCode} -o json > /home/kiterunner/kiterunner-1.0.2/results/{Modello.id}.json\"",
                 };
                 Process.Start(startInfo).WaitForExit();
             }
@@ -89,7 +89,7 @@ namespace RemoteApiScanner.Codice
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("RemoteApiScanner", "noreply@etau.it"));
             message.To.Add(new MailboxAddress(Modello.user, Modello.user));
-            message.Subject = $"Risultato esecuzione RemoteApiScanner {Modello.link}";
+            message.Subject = $"Execution result - RemoteApiScanner {Modello.link}";
 
             var builder = new BodyBuilder();
             builder.HtmlBody = $"Dear user," +
